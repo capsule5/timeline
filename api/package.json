@@ -5,12 +5,18 @@
   "author": "kilt",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.js"
+    "server": "nodemon ./index.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "knex": "^0.15.2",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5",
+    "eslint": "^5.8.0",
+    "babel-eslint": "^10.0.1"
   }
 }
