@@ -8,9 +8,11 @@
   "extends": ["./config/eslint/index.js"],
   "globals": {},
   "rules": {
-    "no-console": 1,
+    "no-console":"warn",
+    "no-debugger":"warn",
     "no-param-reassign": 1,
     "react/prefer-stateless-function": 0,
-    "jsx-a11y/label-has-associated-control": 0
+    "jsx-a11y/label-has-associated-control": 0,
+    "arrow-body-style": 0
   }
 }
