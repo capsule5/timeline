@@ -1,29 +1,31 @@
+import { FETCH_EVENTS } from "./actionTypes"
+
 const initialState = {
   data: [ { title: "initial" } ],
-  isFetchLoading: false,
-  isFetchError: false,
+  isLoading: false,
+  isError: false,
 }
 
 const events = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_EVENTS_REQUEST":
+    case FETCH_EVENTS.REQUEST:
       return {
         ...state,
-        isFetchLoading: true,
-        isFetchError: false,
+        isLoading: true,
+        isError: false,
       }
-    case "FETCH_EVENTS_SUCCESS":
+    case FETCH_EVENTS.SUCCESS:
       return {
         ...state,
         data: action.response.data,
-        isFetchLoading: false,
-        isFetchError: false,
+        isLoading: false,
+        isError: false,
       }
-    case "FETCH_EVENTS_ERROR":
+    case FETCH_EVENTS.FAILURE:
       return {
         ...state,
-        isFetchError: true,
-        isFetchLoading: false,
+        isError: true,
+        isLoading: false,
       }
     default:
       return state

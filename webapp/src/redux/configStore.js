@@ -2,8 +2,8 @@ import {
   createStore, applyMiddleware, combineReducers, compose,
 } from "redux"
 import createSagaMiddleware from "redux-saga"
-import events from "./reducers/events"
-import rootSaga from "./sagas"
+import events from "./events/reducer"
+import rootSaga from "./rootSaga"
 
 // combine reducers
 const rootReducer = combineReducers({
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === "development") {
 export default function configStore() {
   // create store
   const store = createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
-  
+
   // run saga
   sagaMiddleware.run(rootSaga)
 
