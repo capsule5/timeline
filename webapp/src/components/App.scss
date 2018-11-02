@@ -1,3 +1,5 @@
+$red: #833;
+
 .App {
    background-color: #282c34;
   min-height: 100vh;
@@ -8,3 +10,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+
+// Form
+input.error {
+  border-color: $red;
+}
+
+.input-feedback {
+    color: $red;
+    margin-top: .25rem;
+    font-size:10px;
+  }
