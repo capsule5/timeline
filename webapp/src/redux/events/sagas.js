@@ -1,6 +1,9 @@
 import { put, call, takeEvery } from "redux-saga/effects"
 import { api } from "../../utils/api"
-import { FETCH_EVENTS } from "./actionTypes"
+import { FETCH_EVENTS, CREATE_EVENT } from "./actionTypes"
+
+// FETCH
+// -----------------------------
 
 function* fetchEvents() {
   const params = {
@@ -17,4 +20,26 @@ function* fetchEvents() {
 
 export function* watchFetchEvents() {
   yield takeEvery(FETCH_EVENTS.REQUEST, fetchEvents)
+}
+
+// CREATE
+// -----------------------------
+
+function* createEvent({ action }) {
+  const params = {
+    method: "POST",
+    endpoint: "events",
+    data: action,
+  }
+  const response = yield call(api, params)
+  if (response) {
+    yield put({ type: CREATE_EVENT.SUCCESS, response })
+    yield put({ type: FETCH_EVENTS.REQUEST })
+  } else {
+    yield put({ type: CREATE_EVENT.FAILURE, response })
+  }
+}
+
+export function* watchCreateEvent() {
+  yield takeEvery(CREATE_EVENT.REQUEST, createEvent)
 }

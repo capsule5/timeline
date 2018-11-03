@@ -1,14 +1,14 @@
 import React, { Component } from "react"
+import TimelineProvider from "./timeline/TimelineProvider"
+import EventFormProvider from "./forms/event/EventFormProvider"
 import "./App.scss"
-import Timeline from "./timeline/Timeline"
-import EventForm from "./forms/event/EventForm"
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Timeline />
-        <EventForm />
+        <TimelineProvider />
+        <EventFormProvider />
       </div>
     )
   }

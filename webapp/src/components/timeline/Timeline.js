@@ -1,8 +1,7 @@
-import React, { Component } from "react"
+import React, { PureComponent } from "react"
 import "./Timeline.scss"
-import { connect } from "react-redux"
 
-class Timeline extends Component {
+export default class Timeline extends PureComponent {
   componentWillMount() {
     const { fetchEvents } = this.props
     fetchEvents()
@@ -25,16 +24,3 @@ class Timeline extends Component {
     )
   }
 }
-
-// export default Timeline
-
-const mapStateToProps = state => ({
-  events: state.events.data,
-})
-const mapDispatchToProps = dispatch => ({
-  fetchEvents: () => dispatch({ type: "FETCH_EVENTS_REQUEST" }),
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Timeline)

@@ -2,7 +2,7 @@ import React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
 
-const EventForm = () => (
+const EventForm = ({ createEvent }) => (
   <>
     <h1>new event:</h1>
     <Formik
@@ -13,10 +13,8 @@ const EventForm = () => (
           .required(),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          setSubmitting(false)
-        }, 1000)
+        createEvent(values)
+        setSubmitting(false)
       } }
       render={ ({
         values,
