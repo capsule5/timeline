@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react"
+import Event from "./Event"
 import "./Timeline.scss"
 
 export default class Timeline extends PureComponent {
@@ -8,15 +9,18 @@ export default class Timeline extends PureComponent {
   }
 
   render() {
-    const { events } = this.props
+    const { events, deleteEvent } = this.props
     return (
       <>
         <div className="events">
           {events.map(({ id, title }) => {
             return (
-              <span key={ `${id}` } className="events__item">
-                {title}
-              </span>
+              <Event
+                key={ `${id}` }
+                id={ id }
+                title={ title }
+                deleteEvent={ deleteEvent }
+              />
             )
           })}
         </div>

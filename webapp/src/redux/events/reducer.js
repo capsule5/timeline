@@ -1,4 +1,4 @@
-import { FETCH_EVENTS, CREATE_EVENT } from "./actionTypes"
+import { FETCH_EVENTS, CREATE_EVENT, DELETE_EVENT } from "./actionTypes"
 
 const initialState = {
   data: [],
@@ -9,6 +9,7 @@ const events = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_EVENTS.REQUEST:
     case CREATE_EVENT.REQUEST:
+    case DELETE_EVENT.REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -19,8 +20,10 @@ const events = (state = initialState, action) => {
         isLoading: false,
       }
     case CREATE_EVENT.SUCCESS:
+    case DELETE_EVENT.SUCCESS:
     case FETCH_EVENTS.FAILURE:
     case CREATE_EVENT.FAILURE:
+    case DELETE_EVENT.FAILURE:
       return {
         ...state,
         isLoading: false,
