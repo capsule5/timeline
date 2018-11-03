@@ -289,8 +289,11 @@ module.exports = {
                 importLoaders: 2,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                query: {
+                  includePaths: [ path.resolve(__dirname, "node_modules") ],
+                },
               },
-              "sass-loader"
+              "sass-loader",
             ),
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
