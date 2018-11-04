@@ -1,26 +1,25 @@
-const knex = require('../config/database')
+const { Event } = require('../models')
 
 module.exports = {
   all: function(req, res) {
-    return knex('events')
+    return Event.query()
       .then(data => res.send(data))
-      .catch(err => res.status('500').send(err))
+      .catch(err => handleError(err, res))
   },
 
   get: function(req, res) {
     const { id } = req.params
-    return knex('events')
+    return Event.query()
       .where({ id })
       .then(data => res.send(data))
-      .catch(err => res.status('500').send(err))
+      .catch(err => handleError(err, res))
   },
 
   create: function(req, res, next) {
-    const { title } = req.body
-    return knex('events')
-      .insert({ title })
+    return Event.query()
+      .insert(req.body)
       .then(data => res.send(data))
-      .catch(err => res.status('500').send(err))
+      .catch(err => handleError(err, res))
   },
 
   update: function(req, res) {
@@ -28,25 +27,25 @@ module.exports = {
       params: { id },
       body,
     } = req
-    return knex('events')
+    return Event.query()
       .where({ id })
       .update(body)
-      .then(data => {
-        handleSuccessOrErrorMessage(data, res)
-      })
-      .catch(err => res.status('500').send(err))
+      .then(data => handleSuccessOrErrorMessage(data, res))
+      .catch(err => handleError(err, res))
   },
 
   destroy: function(req, res) {
     const { id } = req.params
-    return knex('events')
+    return Event.query()
       .where({ id })
       .del()
-      .then(data => {
-        handleSuccessOrErrorMessage(data, res)
-      })
-      .catch(err => res.status('500').send(err))
+      .then(data => handleSuccessOrErrorMessage(data, res))
+      .catch(err => handleError(err, res))
   },
+}
+
+const handleError = (err, res) => {
+  res.status(err.statusCode || '500').send(err)
 }
 
 const handleSuccessOrErrorMessage = (data, res) => {

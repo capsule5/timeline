@@ -12,6 +12,6 @@ export const api = ({ method, endpoint, data = {} }) => axios({
     return response
   })
   .catch((error) => {
-    console.log("API error", { error })
+    console.log("API error", method, endpoint, error.response.data)
     return error
   })
