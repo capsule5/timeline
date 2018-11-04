@@ -1,4 +1,4 @@
-const knex = require('knex')(require('../database/knexfile'))
+const knex = require('../config/database')
 
 module.exports = {
   all: function(req, res) {
