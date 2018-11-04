@@ -3,6 +3,9 @@ const { Event } = require('../models')
 module.exports = {
   all: function(req, res) {
     return Event.query()
+      .orderBy('date_year', 'asc')
+      .orderBy('date_month', 'asc')
+      .orderBy('date_day', 'asc')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   },

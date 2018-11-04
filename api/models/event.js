@@ -14,7 +14,7 @@ class Event extends Model {
       type: 'object',
       required: [ 'title' ],
       properties: {
-        title: { type: 'string', minLength: 5, maxLength: 255 },
+        title: { type: 'string', minLength: 3, maxLength: 255 },
         date_year: { type: 'integer' },
         date_month: { type: 'integer', minimum: 1, maximum: 12 },
         date_day: { type: 'integer', minimum: 1, maximum: 31 },

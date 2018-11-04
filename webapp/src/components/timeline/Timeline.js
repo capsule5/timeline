@@ -13,12 +13,12 @@ export default class Timeline extends PureComponent {
     return (
       <>
         <div className="events">
-          {events.map(({ id, title }) => {
+          {events.map(({ id, ...event }) => {
             return (
               <Event
+                { ...event }
                 key={ `${id}` }
                 id={ id }
-                title={ title }
                 deleteEvent={ deleteEvent }
               />
             )
