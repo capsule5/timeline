@@ -9,9 +9,9 @@ export const api = ({ method, endpoint, data = {} }) => axios({
 })
   .then((response) => {
     console.log("API success", method, endpoint, response.data)
-    return response
+    return { response }
   })
   .catch((error) => {
     console.log("API error", method, endpoint, error.response.data)
-    return error
+    return { error }
   })

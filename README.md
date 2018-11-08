@@ -1,8 +1,18 @@
+# What?
+A timeline of events
+
+# How?
+- Frontend: React / Redux Saga / Formik
+- Backend: Node / Express / Objection / Knex
+- DB: MySQL
+
 # QuickStart
-#### webapp
-Install dependencies
+#### Webapp
 ```sh
 cd webapp
+```
+Install dependencies
+```sh
 yarn
 ```
 
@@ -12,9 +22,11 @@ yarn start
 ```
 
 #### API 
-Install dependencies
 ```sh
 cd api
+```
+Install dependencies
+```sh
 yarn
 ```
 Launch server
@@ -22,52 +34,21 @@ Launch server
 yarn server
 ```
 
-#### database 
+#### Database 
+```sh
+cd api
+```
 Run migrations:
 ```sh
-cd api/database
 knex migrate:latest  
 ```
+
+Seed db:
+```sh
+knex seed:run  
+```
+
 More commands:
 ```sh
 knex --help
 ```
-
-# Todo Api
-- [ ] logger (morgan)
-- [ ] seeder
-- [ ] handle errors 
-- [ ] notFoundController
-- [ ] graphQl
-- [ ] JWT auth (https://www.youtube.com/watch?v=TcwngmeqLRk)
-
-# Todo Webapp
-- [ ] update event
-- [ ] flow
-
-# Todo Global
-- [ ] continuous integ
-- [ ] nginx
-
-
-# Sources
-#### backend
-- https://hackernoon.com/setting-up-node-js-with-a-database-part-1-3f2461bdd77f
-- https://steemit.com/graphql/@alien35/creating-a-scalable-api-using-node-graphql-mysql-and-knex
-- https://devhints.io/knex
-- https://github.com/robmclarty/knex-express-project-sample
-
-#### frontend
-- https://github.com/maprihoda/react-redux-crud
-
-# Helpers
-```sh
-curl -X POST -H "Content-Type: application/json" -d '{"title":"new event"}' http://localhost:3003/api/events
-```
-
-# Workflow 
-- create migration : $ knex migrate:make create_xxx_table
-- create model & validation
-- seed
-- create routing
-- create controller

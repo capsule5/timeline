@@ -2,6 +2,16 @@ import { put, call, takeEvery } from "redux-saga/effects"
 import { api } from "../../utils/api"
 import { FETCH_EVENTS, CREATE_EVENT, DELETE_EVENT } from "./actionTypes"
 
+function* callToAction({ params, actionType, isRefetch = false }) {
+  const { response, error } = yield call(api, params)
+  if (response) {
+    yield put({ type: actionType.SUCCESS, response })
+    if (isRefetch) yield put({ type: FETCH_EVENTS.REQUEST })
+  } else {
+    yield put({ type: actionType.FAILURE, error })
+  }
+}
+
 // FETCH
 // -----------------------------
 
@@ -10,12 +20,7 @@ function* fetchEvents() {
     method: "GET",
     endpoint: "events",
   }
-  const response = yield call(api, params)
-  if (response) {
-    yield put({ type: FETCH_EVENTS.SUCCESS, response })
-  } else {
-    yield put({ type: FETCH_EVENTS.FAILURE, response })
-  }
+  yield call(callToAction, { actionType: FETCH_EVENTS, params })
 }
 
 export function* watchFetchEvents() {
@@ -31,13 +36,7 @@ function* createEvent({ action }) {
     endpoint: "events",
     data: action,
   }
-  const response = yield call(api, params)
-  if (response) {
-    yield put({ type: CREATE_EVENT.SUCCESS, response })
-    yield put({ type: FETCH_EVENTS.REQUEST })
-  } else {
-    yield put({ type: CREATE_EVENT.FAILURE, response })
-  }
+  yield call(callToAction, { actionType: CREATE_EVENT, params, isRefetch: true })
 }
 
 export function* watchCreateEvent() {
@@ -52,13 +51,7 @@ function* deleteEvent({ action }) {
     method: "DELETE",
     endpoint: `events/${action.id}`,
   }
-  const response = yield call(api, params)
-  if (response) {
-    yield put({ type: DELETE_EVENT.SUCCESS, response })
-    yield put({ type: FETCH_EVENTS.REQUEST })
-  } else {
-    yield put({ type: DELETE_EVENT.FAILURE, response })
-  }
+  yield call(callToAction, { actionType: DELETE_EVENT, params, isRefetch: true })
 }
 
 export function* watchDeleteEvent() {
