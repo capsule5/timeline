@@ -1,26 +1,24 @@
-const { Event } = require('../models')
+const { Story } = require('../models')
 
 module.exports = {
   all: function(req, res) {
-    return Event.query()
-      .orderBy('date_year', 'asc')
-      .orderBy('date_month', 'asc')
-      .orderBy('date_day', 'asc')
-      .eager('story')
-      .then(data => res.send(data))
-      .catch(err => handleError(err, res))
+    return (
+      Story.query()
+        .then(data => res.send(data))
+        .catch(err => handleError(err, res))
+    )
   },
 
   get: function(req, res) {
-    const { id } = req.params
-    return Event.query()
-      .where({ id })
+    return Story.query()
+      .findById(req.params.id)
+      .eager('events')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   },
 
   create: function(req, res, next) {
-    return Event.query()
+    return Story.query()
       .insert(req.body)
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
@@ -31,7 +29,7 @@ module.exports = {
       params: { id },
       body,
     } = req
-    return Event.query()
+    return Story.query()
       .where({ id })
       .update(body)
       .then(data => handleSuccessOrErrorMessage(data, res))
@@ -40,7 +38,7 @@ module.exports = {
 
   destroy: function(req, res) {
     const { id } = req.params
-    return Event.query()
+    return Story.query()
       .where({ id })
       .del()
       .then(data => handleSuccessOrErrorMessage(data, res))
@@ -49,6 +47,7 @@ module.exports = {
 }
 
 const handleError = (err, res) => {
+  console.log('[stab]', { err })
   res.status(err.statusCode || '500').send(err)
 }
 

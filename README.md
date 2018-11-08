@@ -60,7 +60,14 @@ knex --help
 #### frontend
 - https://github.com/maprihoda/react-redux-crud
 
-# HELPERS
+# Helpers
 ```sh
 curl -X POST -H "Content-Type: application/json" -d '{"title":"new event"}' http://localhost:3003/api/events
 ```
+
+# Workflow 
+- create migration : $ knex migrate:make create_xxx_table
+- create model & validation
+- seed
+- create routing
+- create controller

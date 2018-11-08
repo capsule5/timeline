@@ -23,6 +23,21 @@ class Event extends Model {
     }
   }
 
+  static get relationMappings() {
+    const Story = require('./story')
+    
+    return {
+      story: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Story,
+        join: {
+          from: 'events.stories_id',
+          to: 'stories.id',
+        },
+      },
+    }
+  }
+
   $beforeValidate(jsonSchema, json, opt) {
     // converts all integer typed value from string to int
     // TODO: clean that!
