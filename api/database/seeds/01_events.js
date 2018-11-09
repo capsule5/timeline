@@ -25,6 +25,12 @@ exports.seed = function(knex, Promise) {
           date_reliability: 1,
           timelines_id: '1',
         },
+        {
+          title: 'Publication de relativité générale d’Einstein',
+          date_year: 1915,
+          date_reliability: 3,
+          timelines_id: '2',
+        },
       ])
     })
 }

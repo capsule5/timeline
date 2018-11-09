@@ -5,7 +5,8 @@
   "author": "kilt",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./index.js --exec \"node -r babel-register\""
+    "start": "nodemon ./index.js --exec \"node -r babel-register\"",
+    "db:install": "knex migrate:rollback && knex migrate:latest && knex seed:run"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
