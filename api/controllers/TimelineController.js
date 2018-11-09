@@ -1,15 +1,15 @@
-import { Story } from '../models'
+import { Timeline } from '../models'
 import { handleError, handleSuccessOrErrorMessage } from './helpers'
 
-class StoryController {
+class TimelineController {
   static all(req, res) {
-    return Story.query()
+    return Timeline.query()
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   }
 
   static get(req, res) {
-    return Story.query()
+    return Timeline.query()
       .findById(req.params.id)
       .eager('events')
       .then(data => res.send(data))
@@ -17,7 +17,7 @@ class StoryController {
   }
 
   static create(req, res, next) {
-    return Story.query()
+    return Timeline.query()
       .insert(req.body)
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
@@ -28,7 +28,7 @@ class StoryController {
       params: { id },
       body,
     } = req
-    return Story.query()
+    return Timeline.query()
       .where({ id })
       .update(body)
       .then(data => handleSuccessOrErrorMessage(data, res))
@@ -37,7 +37,7 @@ class StoryController {
 
   static destroy(req, res) {
     const { id } = req.params
-    return Story.query()
+    return Timeline.query()
       .where({ id })
       .del()
       .then(data => handleSuccessOrErrorMessage(data, res))
@@ -45,4 +45,4 @@ class StoryController {
   }
 }
 
-export default StoryController
+export default TimelineController

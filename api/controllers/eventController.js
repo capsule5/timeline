@@ -7,7 +7,7 @@ class EventController {
       .orderBy('date_year', 'asc')
       .orderBy('date_month', 'asc')
       .orderBy('date_day', 'asc')
-      .eager('story')
+      .eager('timeline')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   }

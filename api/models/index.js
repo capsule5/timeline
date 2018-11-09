@@ -1,4 +1,4 @@
 import Event from './Event'
-import Story from './Story'
+import Timeline from './Timeline'
 
-module.exports = { Event, Story }
+module.exports = { Event, Timeline }

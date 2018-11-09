@@ -9,7 +9,7 @@ exports.seed = function(knex, Promise) {
           title: 'Invention du nombre',
           date_year: -3000,
           date_reliability: 1,
-          stories_id: '1',
+          timelines_id: '1',
         },
         {
           title: 'Eclipse predite par thales',
@@ -17,13 +17,13 @@ exports.seed = function(knex, Promise) {
           date_month: 5,
           date_day: 28,
           date_reliability: 3,
-          stories_id: '1',
+          timelines_id: '1',
         },
         {
           title: 'Calcul de la circonférence de la Terre par Eratosthene',
           date_year: -200,
           date_reliability: 1,
-          stories_id: '1',
+          timelines_id: '1',
         },
       ])
     })

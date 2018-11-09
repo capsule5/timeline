@@ -1,9 +1,9 @@
 import BaseModel from './BaseModel'
 import { Model } from 'objection'
 
-class Story extends BaseModel {
+class Timeline extends BaseModel {
   static get tableName() {
-    return 'stories'
+    return 'timelines'
   }
 
   static get jsonSchema() {
@@ -24,12 +24,12 @@ class Story extends BaseModel {
         relation: Model.HasManyRelation,
         modelClass: Event,
         join: {
-          from: 'stories.id',
-          to: 'events.stories_id',
+          from: 'timelines.id',
+          to: 'events.timelines_id',
         },
       },
     }
   }
 }
 
-module.exports = Story
+module.exports = Timeline

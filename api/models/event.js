@@ -21,15 +21,15 @@ class Event extends BaseModel {
   }
 
   static get relationMappings() {
-    const Story = require('./Story')
+    const Timeline = require('./Timeline')
 
     return {
-      story: {
+      timeline: {
         relation: Model.BelongsToOneRelation,
-        modelClass: Story,
+        modelClass: Timeline,
         join: {
-          from: 'events.stories_id',
-          to: 'stories.id',
+          from: 'events.timelines_id',
+          to: 'timelines.id',
         },
       },
     }
