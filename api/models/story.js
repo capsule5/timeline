@@ -1,14 +1,11 @@
-const { Model } = require('objection')
-const knex = require('../config/database')
+import BaseModel from './BaseModel'
+import { Model } from 'objection'
 
-Model.knex(knex)
-
-class Story extends Model {
+class Story extends BaseModel {
   static get tableName() {
     return 'stories'
   }
 
-  // https://cswr.github.io/JsonSchema/spec/basic_types/
   static get jsonSchema() {
     return {
       type: 'object',
@@ -20,8 +17,8 @@ class Story extends Model {
   }
 
   static get relationMappings() {
-    const Event = require('./event')
-    
+    const Event = require('./Event')
+
     return {
       events: {
         relation: Model.HasManyRelation,

@@ -31,7 +31,7 @@ yarn
 ```
 Launch server
 ```sh
-yarn server
+yarn start
 ```
 
 #### Database 

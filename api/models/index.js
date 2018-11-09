@@ -1,4 +1,4 @@
-const Event = require('./event')
-const Story = require('./story')
+import Event from './Event'
+import Story from './Story'
 
 module.exports = { Event, Story }

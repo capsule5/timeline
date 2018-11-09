@@ -1,8 +1,8 @@
-const express = require('express')
-const logger = require('morgan')
-const bodyParser = require('body-parser')
-const routerApi = require('./routes/api')
-const cors = require('cors')
+import express from 'express'
+import logger from 'morgan'
+import bodyParser from 'body-parser'
+import routerApi from './routes/api'
+import cors from 'cors'
 
 const app = express()
 app.use(logger('dev'))

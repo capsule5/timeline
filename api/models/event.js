@@ -1,14 +1,11 @@
-const { Model } = require('objection')
-const knex = require('../config/database')
+import { Model } from 'objection'
+import BaseModel from './BaseModel'
 
-Model.knex(knex)
-
-class Event extends Model {
+class Event extends BaseModel {
   static get tableName() {
     return 'events'
   }
 
-  // https://cswr.github.io/JsonSchema/spec/basic_types/
   static get jsonSchema() {
     return {
       type: 'object',
@@ -24,8 +21,8 @@ class Event extends Model {
   }
 
   static get relationMappings() {
-    const Story = require('./story')
-    
+    const Story = require('./Story')
+
     return {
       story: {
         relation: Model.BelongsToOneRelation,
@@ -36,17 +33,6 @@ class Event extends Model {
         },
       },
     }
-  }
-
-  $beforeValidate(jsonSchema, json, opt) {
-    // converts all integer typed value from string to int
-    // TODO: clean that!
-    Object.keys(json).forEach(function(key) {
-      const prop = jsonSchema.properties[key]
-      if (prop && prop.type === 'integer') {
-        json[key] = parseInt(json[key])
-      }
-    })
   }
 }
 
