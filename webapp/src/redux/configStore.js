@@ -1,14 +1,7 @@
-import {
-  createStore, applyMiddleware, combineReducers, compose,
-} from "redux"
+import { createStore, applyMiddleware, compose } from "redux"
 import createSagaMiddleware from "redux-saga"
-import events from "./events/reducer"
+import rootReducer from "./rootReducer"
 import rootSaga from "./rootSaga"
-
-// combine reducers
-const rootReducer = combineReducers({
-  events,
-})
 
 // middlewares
 const sagaMiddleware = createSagaMiddleware()
