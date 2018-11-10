@@ -9,7 +9,9 @@ class EventFormProvider extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
+const mapStateToProps = state => ({
+  timelines: state.timelines.data,
+})
 
 const mapDispatchToProps = dispatch => ({
   createEvent: action => dispatch({ type: CREATE_EVENT.REQUEST, action }),
