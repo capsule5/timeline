@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 // Events
 router.get('/events', EventController.all)
 router.post('/events', EventController.create)
+router.get('/events/timelines', EventController.someByTimelinesIds)
 router.get('/events/:id', EventController.get)
 router.put('/events/:id', EventController.update)
 router.delete('/events/:id', EventController.destroy)

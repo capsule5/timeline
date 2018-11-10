@@ -12,6 +12,18 @@ class EventController {
       .catch(err => handleError(err, res))
   }
 
+  static someByTimelinesIds(req, res) {
+    const { ids } = req.query
+    return Event.query()
+      .whereIn('timelines_id', JSON.parse(ids))
+      .orderBy('date_year', 'asc')
+      .orderBy('date_month', 'asc')
+      .orderBy('date_day', 'asc')
+      .eager('timeline')
+      .then(data => res.send(data))
+      .catch(err => handleError(err, res))
+  }
+
   static get(req, res) {
     const { id } = req.params
     return Event.query()
