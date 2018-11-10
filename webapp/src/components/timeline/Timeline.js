@@ -4,8 +4,8 @@ import "./Timeline.scss"
 
 export default class Timeline extends PureComponent {
   componentWillMount() {
-    const { fetchEvents } = this.props
-    fetchEvents()
+    const { fetchEventsByTimelinesIds } = this.props
+    fetchEventsByTimelinesIds([ 1, 2 ])
   }
 
   render() {

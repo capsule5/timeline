@@ -1,6 +1,8 @@
 import { put, call, takeEvery } from "redux-saga/effects"
 import { api } from "../../utils/api"
-import { FETCH_EVENTS, CREATE_EVENT, DELETE_EVENT } from "./actionTypes"
+import {
+  FETCH_EVENTS, CREATE_EVENT, DELETE_EVENT, FETCH_EVENTS_BY_TIMELINES_IDS,
+} from "./actionTypes"
 
 function* callToAction({ params, actionType, isRefetch = false }) {
   const { response, error } = yield call(api, params)
@@ -16,6 +18,7 @@ function* callToAction({ params, actionType, isRefetch = false }) {
 // -----------------------------
 
 function* fetchEvents() {
+  console.warn("[stab]", "fetchEvents")
   const params = {
     method: "GET",
     endpoint: "events",
@@ -25,6 +28,23 @@ function* fetchEvents() {
 
 export function* watchFetchEvents() {
   yield takeEvery(FETCH_EVENTS.REQUEST, fetchEvents)
+}
+
+// FETCH BY TIMELINES IDS
+// -----------------------------
+
+function* fetchEventsByTimelinesIds({ action }) {
+  console.warn("[stab]", "fetchEventsByTimelinesIds", { action })
+  const params = {
+    method: "GET",
+    endpoint: `events/timelines?ids=${JSON.stringify(action)}`,
+    data: action,
+  }
+  yield call(callToAction, { actionType: FETCH_EVENTS, params })
+}
+
+export function* watchFetchEventsByTimelinesIds() {
+  yield takeEvery(FETCH_EVENTS_BY_TIMELINES_IDS.REQUEST, fetchEventsByTimelinesIds)
 }
 
 // CREATE
