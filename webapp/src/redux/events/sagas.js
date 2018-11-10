@@ -1,4 +1,6 @@
-import { put, call, takeEvery } from "redux-saga/effects"
+import {
+  put, call, takeEvery, select,
+} from "redux-saga/effects"
 import { api } from "../../utils/api"
 import {
   FETCH_EVENTS, CREATE_EVENT, DELETE_EVENT, FETCH_EVENTS_BY_TIMELINES_IDS,
@@ -8,7 +10,7 @@ function* callToAction({ params, actionType, isRefetch = false }) {
   const { response, error } = yield call(api, params)
   if (response) {
     yield put({ type: actionType.SUCCESS, response })
-    if (isRefetch) yield put({ type: FETCH_EVENTS.REQUEST })
+    if (isRefetch) yield put({ type: FETCH_EVENTS_BY_TIMELINES_IDS.REQUEST })
   } else {
     yield put({ type: actionType.FAILURE, error })
   }
@@ -31,16 +33,17 @@ export function* watchFetchEvents() {
 }
 
 // FETCH BY TIMELINES IDS
+//
 // -----------------------------
 
-function* fetchEventsByTimelinesIds({ action }) {
-  console.warn("[stab]", "fetchEventsByTimelinesIds", { action })
+function* fetchEventsByTimelinesIds() {
+  const state = yield select()
+  const { selected } = state.timelines
   const params = {
     method: "GET",
-    endpoint: `events/timelines?ids=${JSON.stringify(action)}`,
-    data: action,
+    endpoint: `events/timelines?ids=${JSON.stringify(selected)}`,
   }
-  yield call(callToAction, { actionType: FETCH_EVENTS, params })
+  yield call(callToAction, { actionType: FETCH_EVENTS_BY_TIMELINES_IDS, params })
 }
 
 export function* watchFetchEventsByTimelinesIds() {

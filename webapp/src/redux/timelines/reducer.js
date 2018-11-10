@@ -1,12 +1,17 @@
-import { FETCH_TIMELINES, CREATE_TIMELINE, DELETE_TIMELINE } from "./actionTypes"
+import {
+  FETCH_TIMELINES, CREATE_TIMELINE, DELETE_TIMELINE, TOGGLE_TIMELINE,
+} from "./actionTypes"
 
 const initialState = {
   data: [],
   isLoading: false,
+  selected: [],
 }
 
 const timelines = (state = initialState, action) => {
-  switch (action.type) {
+  const { type, response } = action
+
+  switch (type) {
     case FETCH_TIMELINES.REQUEST:
     case CREATE_TIMELINE.REQUEST:
     case DELETE_TIMELINE.REQUEST:
@@ -16,7 +21,8 @@ const timelines = (state = initialState, action) => {
       }
     case FETCH_TIMELINES.SUCCESS:
       return {
-        data: action.response.data,
+        ...state,
+        data: response.data,
         isLoading: false,
       }
     case CREATE_TIMELINE.SUCCESS:
@@ -27,6 +33,11 @@ const timelines = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+      }
+    case TOGGLE_TIMELINE.SUCCESS:
+      return {
+        ...state,
+        selected: response.selected,
       }
     default:
       return state

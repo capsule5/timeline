@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import Timeline from "./Timeline"
-import { FETCH_EVENTS_BY_TIMELINES_IDS, DELETE_EVENT } from "../../redux/events/actionTypes"
+import { DELETE_EVENT } from "../../redux/events/actionTypes"
 
 class TimelineProvider extends Component {
   render() {
@@ -14,7 +14,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchEventsByTimelinesIds: action => dispatch({ type: FETCH_EVENTS_BY_TIMELINES_IDS.REQUEST, action }),
   deleteEvent: action => dispatch({ type: DELETE_EVENT.REQUEST, action }),
 })
 

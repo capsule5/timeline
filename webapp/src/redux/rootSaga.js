@@ -3,9 +3,16 @@ import {
   watchFetchEvents, watchFetchEventsByTimelinesIds, watchCreateEvent, watchDeleteEvent,
 } from "./events/sagas"
 import {
-  watchFetchTimelines,
+  watchFetchTimelines, watchToggleTimeline,
 } from "./timelines/sagas"
 
 export default function* rootSaga() {
-  yield all([ watchFetchEvents(), watchFetchEventsByTimelinesIds(), watchCreateEvent(), watchDeleteEvent(), watchFetchTimelines() ])
+  yield all([
+    watchFetchEvents(),
+    watchFetchEventsByTimelinesIds(),
+    watchCreateEvent(),
+    watchDeleteEvent(),
+    watchFetchTimelines(),
+    watchToggleTimeline(),
+  ])
 }

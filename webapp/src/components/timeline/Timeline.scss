@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables';
+
 .event{
   display: inline-block;
   padding: 10px;
@@ -11,7 +13,7 @@
   }
 
   &__label{
-    background-color: cadetblue;
+    background-color:$active;
     color:#282c34;
     border-radius: 3px;
     padding: 3px;
