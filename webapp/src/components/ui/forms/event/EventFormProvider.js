@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import EventForm from "./EventForm"
-import { CREATE_EVENT } from "../../../../redux/events/actionTypes"
+import { EventsStore } from "../../../../redux/store"
 
 class EventFormProvider extends Component {
   render() {
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  createEvent: action => dispatch({ type: CREATE_EVENT.REQUEST, action }),
+  createEvent: action => dispatch({ type: EventsStore.actions.CREATE.REQUEST, action }),
 })
 
 export default connect(

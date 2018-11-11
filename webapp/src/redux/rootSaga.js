@@ -1,18 +1,13 @@
 import { all } from "redux-saga/effects"
-import {
-  watchFetchEvents, watchFetchEventsByTimelinesIds, watchCreateEvent, watchDeleteEvent,
-} from "./events/sagas"
-import {
-  watchFetchTimelines, watchToggleTimeline,
-} from "./timelines/sagas"
+import { EventsStore, TimelinesStore } from "./store"
 
 export default function* rootSaga() {
   yield all([
-    watchFetchEvents(),
-    watchFetchEventsByTimelinesIds(),
-    watchCreateEvent(),
-    watchDeleteEvent(),
-    watchFetchTimelines(),
-    watchToggleTimeline(),
+    EventsStore.watchFetch(),
+    EventsStore.watchFetchByTimelinesIds(),
+    EventsStore.watchCreate(),
+    EventsStore.watchDelete(),
+    TimelinesStore.watchFetch(),
+    TimelinesStore.watchToggle(),
   ])
 }

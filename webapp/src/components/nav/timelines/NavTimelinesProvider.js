@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import NavTimelines from "./NavTimelines"
-import { TOGGLE_TIMELINE } from "../../../redux/timelines/actionTypes"
+import { TimelinesStore } from "../../../redux/store"
 
 class NavTimelinesProvider extends Component {
   render() {
@@ -15,7 +15,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  toggleTimeline: action => dispatch({ type: TOGGLE_TIMELINE.REQUEST, action }),
+  toggleTimeline: action => dispatch({ type: TimelinesStore.actions.TOGGLE.REQUEST, action }),
 })
 
 export default connect(

@@ -1,6 +1,8 @@
 {
-  "name": "webapp",
-  "version": "0.1.0",
+  "name": "timeline",
+  "author": "capsule5",
+  "version": "1.0.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@babel/core": "7.1.0",

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import Timeline from "./Timeline"
-import { DELETE_EVENT } from "../../redux/events/actionTypes"
+import { EventsStore } from "../../redux/store"
 
 class TimelineProvider extends Component {
   render() {
@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  deleteEvent: action => dispatch({ type: DELETE_EVENT.REQUEST, action }),
+  deleteEvent: action => dispatch({ type: EventsStore.actions.DELETE.REQUEST, action }),
 })
 
 export default connect(

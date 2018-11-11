@@ -1,8 +1,8 @@
 {
-  "name": "api",
+  "name": "timeline",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "kilt",
+  "author": "capsule5",
   "license": "MIT",
   "scripts": {
     "start": "nodemon ./index.js --exec \"node -r babel-register\"",

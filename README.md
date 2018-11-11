@@ -1,11 +1,6 @@
 # What?
 A timeline of events
 
-# How?
-- Frontend: React / Redux Saga / Formik
-- Backend: Node / Express / Objection / Knex
-- DB: MySQL
-
 # QuickStart
 #### Webapp
 ```sh

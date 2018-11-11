@@ -1,9 +1,9 @@
 import { combineReducers } from "redux"
-import events from "./events/reducer"
-import timelines from "./timelines/reducer"
+import { EventsStore, TimelinesStore } from "./store"
 
 const rootReducer = combineReducers({
-  events, timelines,
+  events: EventsStore.reducer,
+  timelines: TimelinesStore.reducer,
 })
 
 export default rootReducer
