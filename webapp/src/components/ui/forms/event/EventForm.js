@@ -1,93 +1,72 @@
 import React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
+import FormGroup from "../FormGroup"
 
 const EventForm = ({ createEvent, timelines }) => {
+  const timelinesOptions = timelines.map(({ id: value, title: text }) => ({ value, text }))
+  
   return (
-  <>
-    <h1>new event:</h1>
-    <Formik
-      initialValues={ { title: "", date_year: "", timelines_id: "" } }
-      validationSchema={ Yup.object().shape({
-        title: Yup.string()
-          .min(3)
-          .required(),
-        date_year: Yup.number().required(),
-        timelines_id: Yup.number().required(),
-      }) }
-      onSubmit={ (values, { setSubmitting }) => {
-        createEvent(values)
-        setSubmitting(false)
-      } }
-      render={ ({
-        values,
-        errors,
-        touched,
-        dirty,
-        handleChange,
-        handleSubmit,
-        handleBlur,
-        handleReset,
-        isSubmitting,
-      }) => (
-        <form onSubmit={ handleSubmit }>
-          <div className="formGroup">
-            <label htmlFor="title">
-              <span>Title</span>
-            </label>
-            <input
-              id="title"
-              placeholder="Enter event title"
-              type="text"
-              value={ values.title }
-              onChange={ handleChange }
-              onBlur={ handleBlur }
-              className={ errors.title && touched.title ? "text-input error" : "text-input" }
+    <>
+      <h2>Enter new event:</h2>
+      <Formik
+        initialValues={ {
+          title: "",
+          date_year: "",
+          date_month: "",
+          date_day: "",
+          date_reliability: "",
+          timelines_id: "",
+        } }
+        validationSchema={ Yup.object().shape({
+          title: Yup.string()
+            .min(3)
+            .required(),
+          date_year: Yup.number().required(),
+          date_month: Yup.number(),
+          date_day: Yup.number(),
+          date_reliability: Yup.number(),
+          timelines_id: Yup.number().required(),
+        }) }
+        onSubmit={ (values, { setSubmitting }) => {
+          createEvent(values)
+          setSubmitting(false)
+        } }
+        render={ ({
+          handleSubmit, handleReset, dirty, isSubmitting, ...formikProps
+        }) => (
+          <form onSubmit={ handleSubmit }>
+            <FormGroup name="title" label="Title" placeholder="Enter event title" type="text" { ...formikProps } />
+            <FormGroup name="date_year" label="Year" placeholder="Enter event year" type="number" { ...formikProps } />
+            <FormGroup name="date_month" label="Month" placeholder="Enter event month" type="number" { ...formikProps } />
+            <FormGroup name="date_day" label="Day" placeholder="Enter event day" type="number" { ...formikProps } />
+            <FormGroup
+              name="date_reliability"
+              label="Date reliability"
+              type="select"
+              options={ [ 1, 2, 3 ] }
+              { ...formikProps }
             />
-            {errors.title && touched.title && <div className="input-feedback">{errors.title}</div>}
-          </div>
-
-          <div className="formGroup">
-            <label htmlFor="date_year">
-              <span>Year</span>
-            </label>
-            <input
-              id="date_year"
-              placeholder="Enter event year"
-              type="number"
-              value={ values.date_year }
-              onChange={ handleChange }
-              onBlur={ handleBlur }
-              className={ errors.date_year && touched.date_year ? "text-input error" : "text-input" }
+            <FormGroup
+              name="timelines_id"
+              label="Timeline"
+              placeholder="select a timeline"
+              type="select"
+              options={ timelinesOptions }
+              { ...formikProps }
             />
-            {errors.date_year && touched.date_year && <div className="input-feedback">{errors.date_year}</div>}
-          </div>
-
-          <div className="formGroup">
-            <label htmlFor="timelines_id">
-              <span>Timeline</span>
-            </label>
-            <select id="timelines_id" value={ values.timelines_id } onChange={ handleChange } onBlur={ handleBlur }>
-              <option value="">select a timeline</option>
-              {
-                  timelines.map(t => <option value={ t.id } key={ t.id }>{t.title}</option>)
-              }
-            </select>
-            {errors.timelines_id && touched.timelines_id && <div className="input-feedback">{errors.timelines_id}</div>}
-          </div>
-
-          <div>
-            <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
-              Reset
-            </button>
-            <button type="submit" disabled={ isSubmitting }>
-              Submit
-            </button>
-          </div>
-        </form>
-      ) }
-    />
-  </>
+            <div>
+              <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
+                Reset
+              </button>
+              <button type="submit" disabled={ isSubmitting }>
+                Submit
+              </button>
+            </div>
+          </form>
+        ) }
+      />
+    </>
   )
 }
 

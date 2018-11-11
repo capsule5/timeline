@@ -6,10 +6,13 @@
   border: 1px solid #CCC;
   border-radius: 3px;
   margin:2px;
-  font-size:11px;
+  font-size:12px;
+  position: relative;
 
   &__date{
     font-weight: bold;
+    margin: 5px 0;
+    font-size: 20px;
   }
 
   &__label{
@@ -18,5 +21,12 @@
     border-radius: 3px;
     padding: 3px;
     font-weight: bold;
+    font-size:11px;
+  }
+
+  &__delete{
+    position: absolute;
+    top:3px;
+    right:3px;
   }
 }

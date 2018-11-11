@@ -6,8 +6,10 @@ const Event = ({
   return (
     <span className="event">
       <span className="event__label">{timeline.title}</span>
-      <span className="event__date">{date_year}</span> - {title}
+      <div className="event__date">{date_year}</div>
+      <div className="event__title">{title}</div>
       <button
+        className="event__delete"
         onClick={ () => {
           deleteEvent({ id })
         } }
