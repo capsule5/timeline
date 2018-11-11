@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import TimelineProvider from "./timeline/TimelineProvider"
 import EventFormProvider from "./ui/forms/event/EventFormProvider"
+import TimelineFormProvider from "./ui/forms/timeline/TimelineFormProvider"
 import NavTimelinesProvider from "./nav/timelines/NavTimelinesProvider"
 import { EventsStore, TimelinesStore } from "../redux/store"
 import "./App.scss"
@@ -18,6 +19,7 @@ class App extends Component {
       <div className="App">
         <NavTimelinesProvider />
         <TimelineProvider />
+        <TimelineFormProvider />
         <EventFormProvider />
       </div>
     )

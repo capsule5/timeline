@@ -1,11 +1,11 @@
 import React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
-import FormGroup from "../FormGroup"
+import { FormGroup, FormSubmit } from ".."
 
 const EventForm = ({ createEvent, timelines }) => {
   const timelinesOptions = timelines.map(({ id: value, title: text }) => ({ value, text }))
-  
+
   return (
     <>
       <h2>Enter new event:</h2>
@@ -55,14 +55,12 @@ const EventForm = ({ createEvent, timelines }) => {
               options={ timelinesOptions }
               { ...formikProps }
             />
-            <div>
-              <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
-                Reset
-              </button>
-              <button type="submit" disabled={ isSubmitting }>
-                Submit
-              </button>
-            </div>
+            <FormSubmit
+              handleSubmit={ handleSubmit }
+              handleReset={ handleReset }
+              dirty={ dirty }
+              isSubmitting={ isSubmitting }
+            />
           </form>
         ) }
       />

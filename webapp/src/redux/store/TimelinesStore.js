@@ -17,6 +17,7 @@ class TimelinesStore extends BaseStore {
     this.baseEndpoint = "timelines"
     this.reducer = this.reducer.bind(this)
     this.fetch = this.fetch.bind(this)
+    this.create = this.create.bind(this)
     this.toggle = this.toggle.bind(this)
   }
 
@@ -69,6 +70,22 @@ class TimelinesStore extends BaseStore {
 
   * watchFetch() {
     yield takeEvery(this.actions.FETCH.REQUEST, this.fetch)
+  }
+
+  // CREATE
+  // -----------------------------
+  * create({ action }) {
+    const params = {
+      method: "POST",
+      endpoint: this.baseEndpoint,
+      data: action,
+    }
+    const { response } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
+    if (response) yield put({ type: this.actions.FETCH.REQUEST })
+  }
+
+  * watchCreate() {
+    yield takeEvery(this.actions.CREATE.REQUEST, this.create)
   }
 
   // TOGGLE
