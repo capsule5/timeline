@@ -3,9 +3,9 @@ import React from "react"
 const FormSubmit = ({ handleReset, dirty, isSubmitting }) => {
   return (
     <div>
-      <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
+      {/* <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
         Reset
-      </button>
+      </button> */}
       <button type="submit" disabled={ isSubmitting }>
         Submit
       </button>

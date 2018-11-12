@@ -12,7 +12,7 @@ class TimelinesStore extends BaseStore {
     this.initialState = {
       data: [],
       isLoading: false,
-      selected: [ 1 ],
+      selected: [ 1, 2 ],
     }
     this.baseEndpoint = "timelines"
     this.reducer = this.reducer.bind(this)

@@ -19,8 +19,10 @@ class App extends Component {
       <div className="App">
         <NavTimelinesProvider />
         <TimelineProvider />
-        <TimelineFormProvider />
-        <EventFormProvider />
+        <div className="forms">
+          <TimelineFormProvider />
+          <EventFormProvider />
+        </div>
       </div>
     )
   }

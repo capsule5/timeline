@@ -3,11 +3,14 @@ import React from "react"
 const Event = ({
   id, title, date_year, date_month, date_day, date_reliability, timeline, deleteEvent,
 }) => {
+  const style = {
+    backgroundColor: `#${timeline.color_bg}`,
+  }
   return (
-    <span className="event">
-      <span className="event__label">{timeline.title}</span>
-      <div className="event__date">{date_year}</div>
-      <div className="event__title">{title}</div>
+    <div className="event">
+      
+      <span className="event__date">{date_year}</span>
+      <span className="event__title"><span className="timeline-dot" style={ style } /> {title}</span>
       <button
         className="event__delete"
         onClick={ () => {
@@ -17,7 +20,7 @@ const Event = ({
       >
         x
       </button>
-    </span>
+    </div>
   )
 }
 

@@ -7,9 +7,11 @@ exports.seed = function(knex, Promise) {
       return knex('timelines').insert([
         {
           title: 'Mathematics',
+          color_bg: 'FFDD55',
         },
         {
           title: 'Physics',
+          color_bg: 'DD66EE',
         },
       ])
     })

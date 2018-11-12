@@ -1,9 +1,7 @@
 @import '../../../assets/styles/variables';
 
 .nav__timelines{
-  position: absolute;
-  top:0;
-  left: 0;
+
   padding:15px;
 }
 
@@ -11,22 +9,24 @@
   display: inline-block;
   font-size:11px;
   font-weight: bold;
-  border: 1px solid #FFF;
+  border: 1px solid rgba(255, 255, 255, 0);
   margin:5px;
   border-radius: 3px;
   padding: 3px;
   cursor: pointer;
-  &:hover{
-    border-color:$active;
-    color:$active;
-  }
+  
   &--selected{
-    border-color:$active;
-    background:$active;
-    color:#282c34;
-    
-    &:hover{
-      color:#282c34;
-    }
+    border-color:#FFF;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    //color:#282c34;
   }
+}
+
+.timeline-dot{
+  width:7px;
+  height:7px;
+  margin-right: 4px;
+  border-radius:50%;
+  background-color: #FFF;
+  display: inline-block;
 }

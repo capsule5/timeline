@@ -1,18 +1,19 @@
 @import '../../assets/styles/variables';
 
 .event{
-  display: inline-block;
-  padding: 10px;
-  border: 1px solid #CCC;
+  padding: 0px 15px;
   border-radius: 3px;
   margin:2px;
-  font-size:12px;
   position: relative;
 
   &__date{
     font-weight: bold;
     margin: 5px 0;
-    font-size: 20px;
+    font-size: 18px;
+    margin-right:10px;
+    display: inline-block;
+    width:70px;
+    text-align: right;
   }
 
   &__label{
@@ -25,8 +26,9 @@
   }
 
   &__delete{
-    position: absolute;
-    top:3px;
-    right:3px;
+    background:none;
+    border:none;
+    color:#FFF;
+    cursor:pointer;
   }
 }

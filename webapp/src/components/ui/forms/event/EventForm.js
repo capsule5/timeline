@@ -7,8 +7,8 @@ const EventForm = ({ createEvent, timelines }) => {
   const timelinesOptions = timelines.map(({ id: value, title: text }) => ({ value, text }))
 
   return (
-    <>
-      <h2>Enter new event:</h2>
+    <div className="form-wrapper">
+      <h2>new event:</h2>
       <Formik
         initialValues={ {
           title: "",
@@ -64,7 +64,7 @@ const EventForm = ({ createEvent, timelines }) => {
           </form>
         ) }
       />
-    </>
+    </div>
   )
 }
 

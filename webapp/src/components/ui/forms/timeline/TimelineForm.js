@@ -5,8 +5,8 @@ import { FormGroup, FormSubmit } from ".."
 
 const TimelineForm = ({ createTimeline }) => {
   return (
-    <>
-      <h2>Enter new timeline:</h2>
+    <div className="form-wrapper">
+      <h2>new timeline:</h2>
       <Formik
         initialValues={ {
           title: "",
@@ -25,6 +25,7 @@ const TimelineForm = ({ createTimeline }) => {
         }) => (
           <form onSubmit={ handleSubmit }>
             <FormGroup name="title" label="Title" placeholder="Enter timeline title" type="text" { ...formikProps } />
+            <FormGroup name="color_bg" label="Color" placeholder="Enter timeline color" type="text" { ...formikProps } />
             <FormSubmit
               handleSubmit={ handleSubmit }
               handleReset={ handleReset }
@@ -34,7 +35,7 @@ const TimelineForm = ({ createTimeline }) => {
           </form>
         ) }
       />
-    </>
+    </div>
   )
 }
 

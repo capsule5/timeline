@@ -3,6 +3,7 @@ exports.up = (knex, Promise) =>
     .createTable('timelines', t => {
       t.increments('id').primary()
       t.string('title').notNullable()
+      t.string('color_bg',6)
       t.timestamps(false, true)
     })
     .createTable('events', t => {
