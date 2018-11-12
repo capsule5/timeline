@@ -4,7 +4,7 @@ const Event = ({
   id, title, date_year, date_month, date_day, date_reliability, timeline, deleteEvent,
 }) => {
   const style = {
-    backgroundColor: `#${timeline.color_bg}`,
+    backgroundColor: `${timeline.color_bg}`,
   }
   return (
     <div className="event">

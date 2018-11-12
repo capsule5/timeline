@@ -2,34 +2,28 @@
 A timeline of events
 
 # QuickStart
-#### Webapp
+### Webapp
+Install depedencies
 ```sh
-cd webapp
-```
-Install dependencies
-```sh
-yarn
-```
-
-Launch server
-```sh
-yarn start
-```
-
-#### API 
-```sh
-cd api
-```
-Install dependencies
-```sh
-yarn
+cd webapp && yarn
 ```
 Launch server
 ```sh
 yarn start
 ```
 
-#### Database 
+### API 
+Install dependencies
+```sh
+cd api && yarn
+```
+Launch server
+```sh
+yarn start
+```
+
+### Database 
+MySQL must be installed and running!
 ```sh
 cd api
 ```
@@ -37,13 +31,8 @@ Run migrations:
 ```sh
 knex migrate:latest  
 ```
-
 Seed db:
 ```sh
 knex seed:run  
 ```
 
-More commands:
-```sh
-knex --help
-```

@@ -13,7 +13,7 @@ class NavTimelineToggle extends Component {
     const isSelected = selectedTimelines.includes(id)
     const classNames = `nav__toggle ${isSelected && "nav__toggle--selected"}`
     const style = {
-      backgroundColor: `#${color_bg}`,
+      backgroundColor: `${color_bg}`,
     }
 
     return (
