@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import TimelineProvider from "./timeline/TimelineProvider"
 import EventFormProvider from "./ui/forms/event/EventFormProvider"
 import TimelineFormProvider from "./ui/forms/timeline/TimelineFormProvider"
+import FormDialog from "./ui/forms/FormDialog"
 import NavTimelinesProvider from "./nav/timelines/NavTimelinesProvider"
 import { EventsStore, TimelinesStore } from "../redux/store"
 import "./App.scss"
@@ -20,8 +21,12 @@ class App extends Component {
         <NavTimelinesProvider />
         <TimelineProvider />
         <div className="forms">
-          <TimelineFormProvider />
-          <EventFormProvider />
+          <FormDialog buttonText="+ timeline" formTitle="New timeline">
+            <TimelineFormProvider />
+          </FormDialog>
+          <FormDialog buttonText="+ event" formTitle="New event">
+            <EventFormProvider />
+          </FormDialog>
         </div>
       </div>
     )

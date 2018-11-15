@@ -1,10 +1,7 @@
-@import '../assets/styles/variables';
-
 .App {
   background-color: #282c34;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
+  display: flex;
   color: white;
 }
 
@@ -12,31 +9,6 @@
   position:absolute;
   top:0;
   right:0;
-
-  .form-wrapper{
-    padding: 15px;
-    font-size:12px;
-    label{
-      display: inline-block;
-      min-width: 100px;
-    }
-    input{
-      min-width: 150px;
-    }
-    button{
-      display: inline-block;
-      margin-top: 15px;
-    }
-  }
 }
 
-// Form
-input.error {
-  border-color: $red;
-}
 
-.input-feedback {
-  color: $red;
-  margin-top: .25rem;
-  font-size:10px;
-}

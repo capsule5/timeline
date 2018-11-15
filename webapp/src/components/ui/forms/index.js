@@ -1,4 +1,4 @@
-import FormGroup from "./FormGroup"
+import FormField from "./FormField"
 import FormSubmit from "./FormSubmit"
 
-export { FormGroup, FormSubmit }
+export { FormField, FormSubmit }
