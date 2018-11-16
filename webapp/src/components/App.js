@@ -18,8 +18,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavTimelinesProvider />
-        <TimelineProvider />
         <div className="forms">
           <FormDialog buttonText="+ timeline" formTitle="New timeline">
             <TimelineFormProvider />
@@ -28,6 +26,8 @@ class App extends Component {
             <EventFormProvider />
           </FormDialog>
         </div>
+        <NavTimelinesProvider />
+        <TimelineProvider />
       </div>
     )
   }
