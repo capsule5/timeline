@@ -9,11 +9,14 @@ const TimelineForm = ({ createTimeline }) => {
     <Formik
       initialValues={ {
         title: "",
+        color_bg: "#FFFFFF",
       } }
       validationSchema={ Yup.object().shape({
         title: Yup.string()
           .min(3)
           .required(),
+        color_bg: Yup.string()
+          .matches(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color must be a valid hexadecimal format (#FF00CC)"),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
         createTimeline(values)
