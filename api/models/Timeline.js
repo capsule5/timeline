@@ -23,6 +23,7 @@ class Timeline extends BaseModel {
       events: {
         relation: Model.HasManyRelation,
         modelClass: Event,
+        // filter: query => query.select('id', 'title'),
         join: {
           from: 'timelines.id',
           to: 'events.timelines_id',

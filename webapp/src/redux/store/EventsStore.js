@@ -2,6 +2,7 @@ import {
   call, takeEvery, select, put,
 } from "redux-saga/effects"
 import BaseStore from "./BaseStore"
+import { TimelinesStore } from "."
 
 class EventsStore extends BaseStore {
   constructor() {
@@ -75,7 +76,12 @@ class EventsStore extends BaseStore {
       data: action,
     }
     const { response } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
-    if (response) yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
+    if (response) {
+      // refetch events
+      yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
+      // refetch timelines
+      yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
+    }
   }
 
   * watchCreate() {
@@ -90,7 +96,12 @@ class EventsStore extends BaseStore {
       endpoint: `${this.baseEndpoint}/${action.id}`,
     }
     const { response } = yield call(this.callToAction, { actionType: this.actions.DELETE, params })
-    if (response) yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
+    if (response) {
+      // refetch events
+      yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
+      // refetch timelines
+      yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
+    }
   }
 
   * watchDelete() {

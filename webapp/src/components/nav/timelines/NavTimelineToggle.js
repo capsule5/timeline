@@ -8,10 +8,10 @@ class NavTimelineToggle extends Component {
 
   render() {
     const {
-      id, title, color_bg, toggleTimeline, selectedTimelines,
+      id, title, color_bg, toggleTimeline, selectedTimelines, eventsCount,
     } = this.props
     const isSelected = selectedTimelines.includes(id)
-    const classNames = `nav__toggle ${isSelected && "nav__toggle--selected"}`
+    const classNames = `toggle ${isSelected && "toggle--selected"}`
     const style = {
       backgroundColor: `${color_bg}`,
     }
@@ -24,7 +24,7 @@ class NavTimelineToggle extends Component {
         } }
       >
         <span className="timeline-dot" style={ style } />
-        {title}
+        {title} <span className="toggle__count">({eventsCount})</span>
       </div>
     )
   }

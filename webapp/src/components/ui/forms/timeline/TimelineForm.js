@@ -1,6 +1,7 @@
 import React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
+import faker from "faker"
 import { FormField, FormSubmit } from ".."
 import "../Form.scss"
 
@@ -9,14 +10,16 @@ const TimelineForm = ({ createTimeline }) => {
     <Formik
       initialValues={ {
         title: "",
-        color_bg: "#FFFFFF",
+        color_bg: faker.internet.color(),
       } }
       validationSchema={ Yup.object().shape({
         title: Yup.string()
           .min(3)
           .required(),
-        color_bg: Yup.string()
-          .matches(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, "Color must be a valid hexadecimal format (#FF00CC)"),
+        color_bg: Yup.string().matches(
+          /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+          "Color must be a valid hexadecimal format (#FF00CC)"
+        ),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
         createTimeline(values)

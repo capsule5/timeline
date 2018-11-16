@@ -4,6 +4,15 @@ import { handleError, handleSuccessOrErrorMessage } from './helpers'
 class TimelineController {
   static all(req, res) {
     return Timeline.query()
+      // .eager('events(eventsFilter)', {
+      //   eventsFilter: (builder) => {
+      //     builder.select('id')
+      //   },
+      // })
+      .select([
+        'timelines.*',
+        Timeline.relatedQuery('events').count().as('eventsCount'),
+      ])
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   }

@@ -1,5 +1,5 @@
 import React from "react"
-import TextField from "@material-ui/core/TextField"
+import { TextField, MenuItem } from "@material-ui/core"
 
 const FormGroup = (props) => {
   const {
@@ -18,6 +18,7 @@ const FormGroup = (props) => {
 
   const commons = {
     id: name,
+    name,
     label,
     value: values[name],
     onChange: handleChange,
@@ -32,12 +33,12 @@ const FormGroup = (props) => {
   return (
     <div className="formField">
       {type === "select" ? (
-        <TextField { ...commons } select SelectProps={ { native: true } }>
-          {placeholder && <option value="">{placeholder}</option>}
+        <TextField { ...commons } select>
+          {placeholder && <MenuItem value="">{placeholder}</MenuItem>}
           {options.map(o => (
-            <option value={ o.value || o } key={ o.value || o }>
+            <MenuItem value={ o.value || o } key={ o.value || o }>
               {o.text || o}
-            </option>
+            </MenuItem>
           ))}
         </TextField>
       ) : (
