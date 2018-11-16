@@ -7,16 +7,12 @@ export default class Timeline extends PureComponent {
     const { events, deleteEvent } = this.props
     return (
       <div className="timeline">
-        {events.map(({ id, ...event }) => {
-          return (
-            <Event
-              { ...event }
-              key={ `${id}` }
-              id={ id }
-              deleteEvent={ deleteEvent }
-            />
-          )
-        })}
+        {events.length
+          ? events.map(({ id, ...event }) => {
+            return <Event { ...event } key={ `${id}` } id={ id } deleteEvent={ deleteEvent } />
+          })
+          : <span>There’s no event to display!</span>
+        }
       </div>
     )
   }
