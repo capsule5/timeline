@@ -1,7 +1,14 @@
 @import '../../assets/styles/variables';
 
-.timeline{
+.timeline__wrapper{
+  flex:1;
+  position: relative;
+  overflow: scroll;
+}
+
+.timeline__content{
   padding:15px;
+  position: absolute;
 }
 .event{
   padding: 0px 15px;
