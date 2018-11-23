@@ -18,6 +18,7 @@ class TimelinesStore extends BaseStore {
     this.reducer = this.reducer.bind(this)
     this.fetch = this.fetch.bind(this)
     this.create = this.create.bind(this)
+    this.delete = this.delete.bind(this)
     this.toggle = this.toggle.bind(this)
   }
 
@@ -86,6 +87,21 @@ class TimelinesStore extends BaseStore {
 
   * watchCreate() {
     yield takeEvery(this.actions.CREATE.REQUEST, this.create)
+  }
+
+  // DELETE
+  // -----------------------------
+  * delete({ action }) {
+    const params = {
+      method: "DELETE",
+      endpoint: `${this.baseEndpoint}/${action.id}`,
+    }
+    const { response } = yield call(this.callToAction, { actionType: this.actions.DELETE, params })
+    if (response) yield put({ type: this.actions.FETCH.REQUEST })
+  }
+
+  * watchDelete() {
+    yield takeEvery(this.actions.DELETE.REQUEST, this.delete)
   }
 
   // TOGGLE

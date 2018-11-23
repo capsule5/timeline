@@ -9,6 +9,7 @@ export default function* rootSaga() {
     EventsStore.watchDelete(),
     TimelinesStore.watchFetch(),
     TimelinesStore.watchCreate(),
+    TimelinesStore.watchDelete(),
     TimelinesStore.watchToggle(),
   ])
 }

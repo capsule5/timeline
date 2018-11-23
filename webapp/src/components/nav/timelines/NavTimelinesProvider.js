@@ -16,6 +16,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   toggleTimeline: action => dispatch({ type: TimelinesStore.actions.TOGGLE.REQUEST, action }),
+  deleteTimeline: action => dispatch({ type: TimelinesStore.actions.DELETE.REQUEST, action }),
 })
 
 export default connect(

@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 
-class NavTimelineToggle extends Component {
+class TimelineToggle extends Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -29,4 +29,4 @@ class NavTimelineToggle extends Component {
     )
   }
 }
-export default NavTimelineToggle
+export default TimelineToggle
