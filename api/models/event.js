@@ -13,8 +13,8 @@ class Event extends BaseModel {
       properties: {
         title: { type: 'string', minLength: 3, maxLength: 255 },
         date_year: { type: 'integer' },
-        date_month: { type: [ 'integer', 'null' ], minimum: 1, maximum: 12 },
-        date_day: { type: [ 'integer', 'null' ], minimum: 1, maximum: 31 },
+        date_month: { type: 'integer', minimum: 1, maximum: 12, nullable: true },
+        date_day: { type: 'integer', minimum: 1, maximum: 31, nullable: true },
         date_reliability: { type: 'integer', minimum: 1, maximum: 3 },
       },
     }
