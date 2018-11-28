@@ -1,20 +1,77 @@
 import React, { PureComponent } from "react"
 import Event from "./Event"
+import { formatMonth, formatDay } from "../../utils/date"
 import "./Timeline.scss"
 
 export default class Timeline extends PureComponent {
+  getTimeUnit({ year, month, day }) {
+    let timeUnit
+    if (year) timeUnit = "year"
+    else if (month) timeUnit = "month"
+    else if (day) timeUnit = "day"
+    return timeUnit
+  }
+
+  renderDate(date) {
+    const { year, month, day } = date
+
+    return (
+      <div className={ `timeline__date timeline__date--${this.getTimeUnit(date)}` }>
+        {year || formatMonth(month) || formatDay(day)}
+      </div>
+    )
+  }
+
+  renderEventsPerDate({
+    dom, year, month, day, values,
+  }) {
+    const { deleteEvent } = this.props
+    if (values.events) {
+      const events = values.events.map(({ id, ...event }) => {
+        return <Event { ...event } key={ `${id}` } id={ id } deleteEvent={ deleteEvent } />
+      })
+      dom.push(
+        <div className={ `timeline__group timeline__group--${this.getTimeUnit({ year, month, day })}` }>
+          {this.renderDate({ year, month, day })}
+          <div className="timeline__events">{events}</div>
+        </div>
+      )
+    } else {
+      dom.push(<div className="timeline__group">{this.renderDate({ year, month, day })}</div>)
+    }
+
+    return dom
+  }
+
+  renderTimeline() {
+    const { eventsByDate } = this.props
+    let dom = []
+    // years
+    eventsByDate.years.forEach((year) => {
+      dom = this.renderEventsPerDate({ dom, year: year.key, values: year.values })
+      // months
+      if (year.values.months) {
+        year.values.months.forEach((month) => {
+          dom = this.renderEventsPerDate({ dom, month: month.key, values: month.values })
+          // days
+          if (month.values.days) {
+            month.values.days.forEach((day) => {
+              dom = this.renderEventsPerDate({ dom, day: day.key, values: day.values })
+            })
+          }
+        })
+      }
+    })
+
+    return dom
+  }
+
   render() {
-    const { events, deleteEvent } = this.props
+    const timeline = this.renderTimeline()
     return (
       <div className="timeline__wrapper">
         <div className="timeline__content">
-          {events.length ? (
-            events.map(({ id, ...event }) => {
-              return <Event { ...event } key={ `${id}` } id={ id } deleteEvent={ deleteEvent } />
-            })
-          ) : (
-            <span>There’s no event to display!</span>
-          )}
+          {timeline.length ? timeline : <span>There’s no event to display!</span>}
         </div>
       </div>
     )

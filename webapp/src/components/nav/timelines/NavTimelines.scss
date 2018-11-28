@@ -2,10 +2,14 @@
   padding:15px;
 }
 
-.nav__timeline{}
+.nav__timeline{
+  display: flex
+}
 
 .toggle{
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  flex:1;
   font-size:11px;
   font-weight: bold;
   border: 1px solid rgba(255, 255, 255, 0);
@@ -22,6 +26,7 @@
   &__count{
     display: inline-block;
     opacity: .5;
+    margin-left: 5px;;
   }
 }
 

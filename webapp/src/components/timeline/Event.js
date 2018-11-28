@@ -10,11 +10,11 @@ const Event = ({
   }
   return (
     <div className="event">
-      <div className="event__date">
+      {/* <div className="event__date">
         <div className="year">{date_year}</div>
         <div className="month">{getMonth(date_month)}</div>
         <div className="day">{date_day}</div>
-      </div>
+      </div> */}
       <span className="event__title">
         <span className="timeline-dot" style={ style } /> {title}
       </span>

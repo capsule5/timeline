@@ -1,41 +1,68 @@
 @import '../../assets/styles/variables';
 
-.timeline__wrapper{
-  flex:1;
-  position: relative;
-  overflow: scroll;
-}
+.timeline{
+  &__wrapper{
+    flex:1;
+    position: relative;
+    overflow: scroll;
+  }
 
-.timeline__content{
-  padding:15px;
-  position: absolute;
-}
-.event{
-  padding: 0px 15px;
-  border-radius: 3px;
-  margin:2px;
-  position: relative;
+  &__content{
+    padding:15px;
+    position: absolute;
+  }
+
+  &__group{
+    display: flex;
+    align-items: flex-start;
+    margin: 20px 0;
+    // &--year{
+    //   .event{
+    //     margin-top: 15px;
+    //   }
+    // }
+  }
 
   &__date{
     font-weight: bold;
-    margin: 5px 0;
+    //margin: 5px 0;
     margin-right:10px;
     display: inline-block;
-    width:90px;
+    width:100px;
     text-align: right;
 
-    .year{
-      font-size: 20px;
+    &--year{
+      font-size: 30px;
+      font-weight: normal;
     }
-    .month{
-      font-size: 14px;
+    &--month{
+      font-size: 18px;
       opacity: .7;
     }
-    .day{
+    &--day{
       font-size: 14px;
       opacity: .4;
     }
   }
+
+  &__events{
+    display: inline-block;
+  }
+}
+
+
+
+.event{
+  padding: 0px 15px;
+  border-radius: 3px;
+  margin-bottom:20px;
+  position: relative;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  
 
   &__label{
     background-color:$active;
