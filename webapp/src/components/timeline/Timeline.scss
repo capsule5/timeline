@@ -8,8 +8,9 @@
   }
 
   &__content{
-    padding:15px;
+
     position: absolute;
+    width:100%;
   }
 
   &__group{
@@ -47,23 +48,39 @@
 
   &__events{
     display: inline-block;
+    align-items: flex-start;
+    flex:1
   }
 }
 
 
-
 .event{
-  padding: 0px 15px;
+  padding: 0px 5px;
   border-radius: 3px;
   margin-bottom:20px;
   position: relative;
+  cursor: pointer;
+  display:flex;
+  align-items: flex-start;
 
   &:last-child{
     margin-bottom: 0;
   }
 
-  
+  &:hover,
+  &--selected{
+    background-color: darken(#282c34,5%)
+  }
 
+  .timeline-dot{
+    margin-top: 5px;
+    margin-right: 8px;
+  }
+
+  &__title{
+    display: inline-block;
+  }
+  
   &__label{
     background-color:$active;
     color:#282c34;

@@ -5,6 +5,7 @@ import EventFormProvider from "./ui/forms/event/EventFormProvider"
 import TimelineFormProvider from "./ui/forms/timeline/TimelineFormProvider"
 import FormDialog from "./ui/forms/FormDialog"
 import NavTimelinesProvider from "./nav/timelines/NavTimelinesProvider"
+import DetailEventProvider from "./detail/DetailEventProvider"
 import { EventsStore, TimelinesStore } from "../redux/store"
 import "./App.scss"
 
@@ -28,6 +29,7 @@ class App extends Component {
         </div>
         <NavTimelinesProvider />
         <TimelineProvider />
+        <DetailEventProvider />
       </div>
     )
   }

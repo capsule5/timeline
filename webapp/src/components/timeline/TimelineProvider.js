@@ -4,7 +4,6 @@ import Timeline from "./Timeline"
 import { EventsStore } from "../../redux/store"
 import { groupByArray } from "../../utils/data"
 
-
 const groupByDate = (events) => {
   const eventsByDate = {
     years: groupByArray(events, "date_year"),
@@ -55,10 +54,12 @@ class TimelineProvider extends Component {
 
 const mapStateToProps = state => ({
   events: state.events.data,
+  selectedEventId: state.events.selected ? state.events.selected.id : null,
 })
 
 const mapDispatchToProps = dispatch => ({
   deleteEvent: action => dispatch({ type: EventsStore.actions.DELETE.REQUEST, action }),
+  getEvent: action => dispatch({ type: EventsStore.actions.GET.REQUEST, action }),
 })
 
 export default connect(

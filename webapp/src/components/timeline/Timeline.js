@@ -25,10 +25,21 @@ export default class Timeline extends PureComponent {
   renderEventsPerDate({
     dom, year, month, day, values,
   }) {
-    const { deleteEvent } = this.props
+    const { deleteEvent, getEvent, selectedEventId } = this.props
+
     if (values.events) {
       const events = values.events.map(({ id, ...event }) => {
-        return <Event { ...event } key={ `${id}` } id={ id } deleteEvent={ deleteEvent } />
+        const isSelected = selectedEventId === id
+        return (
+          <Event
+            { ...event }
+            key={ `${id}` }
+            id={ id }
+            deleteEvent={ deleteEvent }
+            getEvent={ getEvent }
+            isSelected={ isSelected }
+          />
+        )
       })
       dom.push(
         <div className={ `timeline__group timeline__group--${this.getTimeUnit({ year, month, day })}` }>

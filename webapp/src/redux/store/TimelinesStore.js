@@ -1,5 +1,5 @@
 import {
-  call, takeEvery, select, put,
+  call, takeEvery, takeLatest, select, put,
 } from "redux-saga/effects"
 import BaseStore from "./BaseStore"
 import Events from "./EventsStore"
@@ -127,7 +127,7 @@ class TimelinesStore extends BaseStore {
   }
 
   * watchToggle() {
-    yield takeEvery(this.actions.TOGGLE.REQUEST, this.toggle)
+    yield takeLatest(this.actions.TOGGLE.REQUEST, this.toggle)
   }
 }
 

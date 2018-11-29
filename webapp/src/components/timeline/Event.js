@@ -1,23 +1,22 @@
 import React from "react"
 import DeleteButton from "../ui/buttons/DeleteButton"
-import { getMonth } from "../../utils/date"
 
 const Event = ({
-  id, title, date_year, date_month, date_day, date_reliability, timeline, deleteEvent,
+  id, title, timeline, deleteEvent, getEvent, isSelected,
 }) => {
   const style = {
     backgroundColor: `${timeline.color_bg}`,
   }
+  const classes = `event ${isSelected && "event--selected"}`
   return (
-    <div className="event">
-      {/* <div className="event__date">
-        <div className="year">{date_year}</div>
-        <div className="month">{getMonth(date_month)}</div>
-        <div className="day">{date_day}</div>
-      </div> */}
-      <span className="event__title">
-        <span className="timeline-dot" style={ style } /> {title}
-      </span>
+    <div
+      className={ classes }
+      onClick={ () => {
+        getEvent({ id })
+      } }
+    >
+      <span className="timeline-dot" style={ style } />
+      <span className="event__title">{title}</span>
       <DeleteButton id={ id } action={ deleteEvent } />
     </div>
   )

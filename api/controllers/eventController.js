@@ -28,6 +28,8 @@ class EventController {
     const { id } = req.params
     return Event.query()
       .where({ id })
+      .first()
+      .eager('timeline')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
   }

@@ -1,5 +1,5 @@
 import {
-  call, takeEvery, select, put,
+  call, takeEvery, takeLatest, select, put,
 } from "redux-saga/effects"
 import BaseStore from "./BaseStore"
 import { TimelinesStore } from "."
@@ -8,10 +8,11 @@ class EventsStore extends BaseStore {
   constructor() {
     super()
     this.ref = "EVENTS"
-    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "FETCH_BY_TIMELINES_IDS" ])
+    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "FETCH_BY_TIMELINES_IDS", "GET" ])
     this.initialState = {
       data: [],
       isLoading: false,
+      selected: null,
     }
     this.baseEndpoint = "events"
     this.reducer = this.reducer.bind(this)
@@ -19,6 +20,7 @@ class EventsStore extends BaseStore {
     this.fetch = this.fetch.bind(this)
     this.create = this.create.bind(this)
     this.delete = this.delete.bind(this)
+    this.get = this.get.bind(this)
   }
 
   reducer(state = this.initialState, action) {
@@ -28,6 +30,7 @@ class EventsStore extends BaseStore {
       case actions.FETCH_BY_TIMELINES_IDS.REQUEST:
       case actions.CREATE.REQUEST:
       case actions.DELETE.REQUEST:
+      case actions.GET.REQUEST:
         return {
           ...state,
           isLoading: true,
@@ -35,7 +38,14 @@ class EventsStore extends BaseStore {
       case actions.FETCH.SUCCESS:
       case actions.FETCH_BY_TIMELINES_IDS.SUCCESS:
         return {
+          ...state,
           data: action.response.data,
+          isLoading: false,
+        }
+      case actions.GET.SUCCESS:
+        return {
+          ...state,
+          selected: action.response.data,
           isLoading: false,
         }
       case actions.CREATE.SUCCESS:
@@ -44,6 +54,7 @@ class EventsStore extends BaseStore {
       case actions.FETCH_BY_TIMELINES_IDS.FAILURE:
       case actions.CREATE.FAILURE:
       case actions.DELETE.FAILURE:
+      case actions.GET.FAILURE:
         return {
           ...state,
           isLoading: false,
@@ -108,6 +119,20 @@ class EventsStore extends BaseStore {
     yield takeEvery(this.actions.DELETE.REQUEST, this.delete)
   }
 
+  // GET
+  // -----------------------------
+  * get({ action }) {
+    const params = {
+      method: "GET",
+      endpoint: `${this.baseEndpoint}/${action.id}`,
+    }
+    yield call(this.callToAction, { actionType: this.actions.GET, params })
+  }
+
+  * watchGet() {
+    yield takeEvery(this.actions.GET.REQUEST, this.get)
+  }
+
   // FETCH BY TIMELINES IDS
   // -----------------------------
   * fetchByTimelinesIds() {
@@ -121,7 +146,7 @@ class EventsStore extends BaseStore {
   }
 
   * watchFetchByTimelinesIds() {
-    yield takeEvery(this.actions.FETCH_BY_TIMELINES_IDS.REQUEST, this.fetchByTimelinesIds)
+    yield takeLatest(this.actions.FETCH_BY_TIMELINES_IDS.REQUEST, this.fetchByTimelinesIds)
   }
 }
 
