@@ -11,6 +11,10 @@ import "./App.scss"
 
 class App extends Component {
   componentWillMount() {
+    this.initApp()
+  }
+
+  initApp() {
     const { fetchTimelines, fetchEventsByTimelinesIds } = this.props
     fetchTimelines()
     fetchEventsByTimelinesIds()

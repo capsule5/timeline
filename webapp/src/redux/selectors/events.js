@@ -60,3 +60,10 @@ export const getAllByDate = createSelector(
     return eventsByDate
   }
 )
+
+export const getFirstId = createSelector(
+  [ getAll ],
+  (events) => {
+    return events.length ? events[0].id : null
+  }
+)
