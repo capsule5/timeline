@@ -82,7 +82,7 @@ export default class Timeline extends PureComponent {
     return (
       <div className="timeline__wrapper">
         <div className="timeline__content">
-          {timeline.length ? timeline : <span>There’s no event to display!</span>}
+          {timeline.length ? timeline : <div style={ { padding: 20 } }>No event to display, select a timeline!</div>}
         </div>
       </div>
     )

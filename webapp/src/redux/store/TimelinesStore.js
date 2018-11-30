@@ -1,4 +1,3 @@
-import { delay } from "redux-saga"
 import {
   call, takeEvery, takeLatest, select, put,
 } from "redux-saga/effects"
@@ -13,7 +12,7 @@ class TimelinesStore extends BaseStore {
     this.initialState = {
       data: [],
       isLoading: false,
-      selected: [ 1, 2, 3, 4, 5 ],
+      selected: [],
     }
     this.baseEndpoint = "timelines"
     this.reducer = this.reducer.bind(this)
@@ -71,7 +70,7 @@ class TimelinesStore extends BaseStore {
   }
 
   * watchFetch() {
-    yield takeEvery(this.actions.FETCH.REQUEST, this.fetch)
+    yield takeLatest(this.actions.FETCH.REQUEST, this.fetch)
   }
 
   // CREATE
@@ -128,7 +127,7 @@ class TimelinesStore extends BaseStore {
   }
 
   * watchToggle() {
-    yield takeLatest(this.actions.TOGGLE.REQUEST, this.toggle)
+    yield takeEvery(this.actions.TOGGLE.REQUEST, this.toggle)
   }
 }
 

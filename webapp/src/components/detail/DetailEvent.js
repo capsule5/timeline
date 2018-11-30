@@ -13,7 +13,7 @@ class DetailEvent extends Component {
 
   render() {
     const {
-      id, title, date_reliability, timeline = {}, deleteEvent,
+      title, timeline = {},
     } = this.props
 
     const style = {

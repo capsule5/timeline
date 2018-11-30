@@ -1,7 +1,7 @@
 import React from "react"
 import Button from "@material-ui/core/Button"
 
-const FormSubmit = ({ handleReset, dirty, isSubmitting }) => {
+const FormSubmit = ({ isSubmitting }) => {
   return (
     <div className="form__submit">
       {/* <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>

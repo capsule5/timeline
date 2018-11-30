@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import Timeline from "./Timeline"
 import { EventsStore } from "../../redux/store"
-import { events } from "../../redux/selectors"
+import { eventsSelector } from "../../redux/selectors"
 
 class TimelineProvider extends Component {
   render() {
@@ -11,8 +11,8 @@ class TimelineProvider extends Component {
 }
 
 const mapStateToProps = state => ({
-  selectedEventId: events.getSelectedId(state),
-  eventsByDate: events.getAllByDate(state),
+  selectedEventId: eventsSelector.getSelectedId(state),
+  eventsByDate: eventsSelector.getAllByDate(state),
 })
 
 const mapDispatchToProps = dispatch => ({

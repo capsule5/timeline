@@ -1,4 +1,4 @@
-import * as events from "./events"
-import * as timelines from "./timelines"
+import * as eventsSelector from "./events"
+import * as timelinesSelector from "./timelines"
 
-export { events, timelines }
+export { eventsSelector, timelinesSelector }

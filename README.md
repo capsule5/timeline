@@ -35,4 +35,3 @@ Seed db:
 ```sh
 knex seed:run  
 ```
-

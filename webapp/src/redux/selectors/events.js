@@ -19,31 +19,38 @@ export const getSelectedId = createSelector(
 )
 
 export const getAllByDate = createSelector(
-  [ getAll ],
-  (events) => {
+  [ getAll ], (events) => {
+    const getGroup = (arr, key) => {
+      const values = groupByArray(arr, key)
+      const groupWithKey = values.filter(v => v.key)
+      const groupWithNoKey = values.filter(v => !v.key)
+      const withKey = groupWithKey.length ? groupWithKey : null
+      const withNoKey = groupWithNoKey.length ? groupWithNoKey[0].values : null
+      return {
+        withKey,
+        withNoKey,
+      }
+    }
+
     const eventsByDate = {
       years: groupByArray(events, "date_year"),
     }
 
     const { years } = eventsByDate
     years.forEach((year) => {
-      const values = groupByArray(year.values, "date_month")
-      const groupWithNoKey = values.filter(v => !v.key)
-      const groupWithKey = values.filter(v => v.key)
+      const groupByMonths = getGroup(year.values, "date_month")
       year.values = {
-        events: groupWithNoKey.length ? groupWithNoKey[0].values : null, // no months
-        months: groupWithKey.length ? groupWithKey : null,
+        events: groupByMonths.withNoKey, // no months
+        months: groupByMonths.withKey,
       }
 
       const { months } = year.values
       if (months) {
         months.forEach((month) => {
-          const values = groupByArray(month.values, "date_day")
-          const groupWithNoKey = values.filter(v => !v.key)
-          const groupWithKey = values.filter(v => v.key)
+          const groupByDays = getGroup(month.values, "date_day")
           month.values = {
-            events: groupWithNoKey.length ? groupWithNoKey[0].values : null, // no days
-            days: groupWithKey.length ? groupWithKey : null,
+            events: groupByDays.withNoKey, // no days
+            days: groupByDays.withKey,
           }
 
           const { days } = month.values
@@ -61,9 +68,6 @@ export const getAllByDate = createSelector(
   }
 )
 
-export const getFirstId = createSelector(
-  [ getAll ],
-  (events) => {
-    return events.length ? events[0].id : null
-  }
-)
+export const getFirstId = createSelector([ getAll ], (events) => {
+  return events.length ? events[0].id : null
+})

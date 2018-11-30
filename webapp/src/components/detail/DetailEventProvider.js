@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import DetailEvent from "./DetailEvent"
-import { events } from "../../redux/selectors"
+import { eventsSelector } from "../../redux/selectors"
 
 class DetailEventProvider extends Component {
   render() {
@@ -11,12 +11,10 @@ class DetailEventProvider extends Component {
 }
 
 const mapStateToProps = state => ({
-  selected: events.getSelected(state),
+  selected: eventsSelector.getSelected(state),
 })
-
-const mapDispatchToProps = dispatch => ({})
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(DetailEventProvider)

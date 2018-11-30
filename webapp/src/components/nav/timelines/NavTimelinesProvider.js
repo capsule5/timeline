@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import NavTimelines from "./NavTimelines"
 import { TimelinesStore } from "../../../redux/store"
-import { timelines } from "../../../redux/selectors"
+import { timelinesSelector } from "../../../redux/selectors"
 
 class NavTimelinesProvider extends Component {
   render() {
@@ -11,8 +11,8 @@ class NavTimelinesProvider extends Component {
 }
 
 const mapStateToProps = state => ({
-  timelines: timelines.getAll(state),
-  selectedTimelines: timelines.getSelected(state),
+  timelines: timelinesSelector.getAll(state),
+  selectedTimelines: timelinesSelector.getSelected(state),
 })
 
 const mapDispatchToProps = dispatch => ({
