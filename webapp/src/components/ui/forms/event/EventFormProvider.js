@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import EventForm from "./EventForm"
 import { EventsStore } from "../../../../redux/store"
+import { timelines } from "../../../../redux/selectors"
 
 class EventFormProvider extends Component {
   render() {
@@ -10,7 +11,7 @@ class EventFormProvider extends Component {
 }
 
 const mapStateToProps = state => ({
-  timelines: state.timelines.data,
+  timelines: timelines.getAll(state),
 })
 
 const mapDispatchToProps = dispatch => ({

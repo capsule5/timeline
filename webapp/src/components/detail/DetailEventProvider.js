@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import DetailEvent from "./DetailEvent"
 import { EventsStore } from "../../redux/store"
+import { events } from "../../redux/selectors"
 
 class DetailEventProvider extends Component {
   componentWillMount() {
@@ -16,7 +17,7 @@ class DetailEventProvider extends Component {
 }
 
 const mapStateToProps = state => ({
-  selected: state.events.selected,
+  selected: events.getSelected(state),
 })
 
 const mapDispatchToProps = dispatch => ({
