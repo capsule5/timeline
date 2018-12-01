@@ -14,6 +14,7 @@ class App extends Component {
   componentDidMount() {
     const { fetchTimelines } = this.props
     fetchTimelines()
+    console.log("INIT APP", process.env.NODE_ENV)
   }
 
   componentWillReceiveProps(nextProps) {

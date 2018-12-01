@@ -1,5 +1,6 @@
 import BaseModel from './BaseModel'
 import { Model } from 'objection'
+import Event from './Event'
 
 class Timeline extends BaseModel {
   static get tableName() {
@@ -17,7 +18,6 @@ class Timeline extends BaseModel {
   }
 
   static get relationMappings() {
-    const Event = require('./Event')
 
     return {
       events: {
@@ -33,4 +33,4 @@ class Timeline extends BaseModel {
   }
 }
 
-module.exports = Timeline
+export default Timeline
