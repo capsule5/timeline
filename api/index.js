@@ -9,7 +9,7 @@ app.use(logger('dev'))
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use('/api', routerApi)
+app.use('/', routerApi)
 
 const PORT = 3003
 app.listen(PORT, () => {
