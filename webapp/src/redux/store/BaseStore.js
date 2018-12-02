@@ -1,8 +1,8 @@
 import { put, call } from "redux-saga/effects"
 import axios from "axios"
 
-const BASE_URL = process.env.NODE_ENV === "production" ? "http://46.101.243.149:3003" : "http://localhost:3003"
-const API_BASE_URL = `${BASE_URL}/api/`
+const API_BASE_URL = process.env.NODE_ENV === "production" ? "http://46.101.243.149:3003" : "http://localhost:3003"
+const API_PATH = `${API_BASE_URL}/api/`
 
 class BaseStore {
   constructor() {
@@ -27,7 +27,7 @@ class BaseStore {
 
   api({ method, endpoint, data = {} }) {
     return axios({
-      url: `${API_BASE_URL}${endpoint}`,
+      url: `${API_PATH}${endpoint}`,
       method,
       data,
     })

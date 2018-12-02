@@ -5,10 +5,6 @@ import TimelineController from '../../controllers/TimelineController'
 
 const router = express.Router()
 
-router.get('/', (req, res) => {
-  res.send('hello API')
-})
-
 // Events
 router.get('/events', EventController.all)
 router.post('/events', EventController.create)
