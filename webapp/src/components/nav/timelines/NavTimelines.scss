@@ -10,12 +10,12 @@
   display: flex;
   align-items: center;
   flex:1;
-  font-size:11px;
-  font-weight: bold;
+  font-size:14px;
+  //font-weight: bold;
   border: 1px solid rgba(255, 255, 255, 0);
-  margin:5px;
+  margin: 0 0 7px 0;
   border-radius: 3px;
-  padding: 3px;
+  padding: 6px 6px;
   cursor: pointer;
   
   &--selected{

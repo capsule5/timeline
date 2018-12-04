@@ -5,12 +5,12 @@
     flex:1;
     position: relative;
     overflow: scroll;
+    display: flex;
+    justify-content: center;
   }
 
   &__content{
-
-    position: absolute;
-    width:100%;
+    max-width:700px;
   }
 
   &__group{
