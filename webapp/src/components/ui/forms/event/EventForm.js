@@ -5,7 +5,7 @@ import faker from "faker"
 import { FormField, FormSubmit } from ".."
 import "../Form.scss"
 
-const EventForm = ({ createEvent, timelines }) => {
+const EventForm = ({ createEvent, timelines, closeDialog }) => {
   const timelinesOptions = timelines.map(({ id: value, title: text }) => ({ value, text }))
   const lastTimelineId = timelines[timelines.length - 1].id
 
@@ -34,7 +34,7 @@ const EventForm = ({ createEvent, timelines }) => {
         timelines_id: Yup.number().required(),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
-        createEvent(values)
+        createEvent({ values, onSuccess: closeDialog })
         setSubmitting(false)
       } }
       render={ ({

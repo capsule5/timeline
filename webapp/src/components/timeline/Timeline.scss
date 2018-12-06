@@ -2,21 +2,30 @@
 
 .timeline{
   &__wrapper{
-    flex:1;
-    position: relative;
-    overflow: scroll;
     display: flex;
     justify-content: center;
+    height:100vh;
+    overflow: auto;
+    background:darken(#282c34,3);
+    padding: 0 10px;
+    border-top:0;
+    border-bottom:0;
+    @media only screen and (min-width: 600px) {
+      padding: 0 20px;
+    }
   }
 
   &__content{
+    flex:1;
     max-width:700px;
+    color:#FFF;
+    padding:40px 0;
   }
 
   &__group{
     display: flex;
     align-items: flex-start;
-    margin: 20px 0;
+    margin: 5px 0;
     // &--year{
     //   .event{
     //     margin-top: 15px;
@@ -26,14 +35,14 @@
 
   &__date{
     font-weight: bold;
-    //margin: 5px 0;
+    margin: 5px 0;
     margin-right:10px;
     display: inline-block;
     width:100px;
     text-align: right;
 
     &--year{
-      font-size: 30px;
+      font-size: 36px;
       font-weight: normal;
     }
     &--month{
@@ -55,9 +64,9 @@
 
 
 .event{
-  padding: 0px 5px;
+  padding: 5px 5px;
   border-radius: 3px;
-  margin-bottom:20px;
+  margin-bottom:10px;
   position: relative;
   cursor: pointer;
   display:flex;
@@ -69,7 +78,7 @@
 
   &:hover,
   &--selected{
-    background-color: darken(#282c34,5%)
+    background-color: darken(#282c34,20)
   }
 
   .timeline-dot{
@@ -79,6 +88,10 @@
 
   &__title{
     display: inline-block;
+    font-size:13px;
+    @media only screen and (min-width: 600px) {
+      font-size:inherit;
+    }
   }
   
   &__label{

@@ -1,23 +1,25 @@
 import React from "react"
-import DeleteButton from "../ui/buttons/DeleteButton"
 
 const Event = ({
-  id, title, timeline, deleteEvent, getEvent, isSelected,
+  id, title, timeline, getEvent, isSelected,
 }) => {
   const style = {
     backgroundColor: `${timeline.color_bg}`,
   }
   const classes = `event ${isSelected && "event--selected"}`
   return (
-    <div
-      className={ classes }
-      onClick={ () => {
-        getEvent({ id })
-      } }
-    >
-      <span className="timeline-dot" style={ style } />
-      <span className="event__title">{title}</span>
-      <DeleteButton id={ id } action={ deleteEvent } />
+    <div style={ { display: "flex", alignItems: "flex-start" } }>
+      <div
+        className={ classes }
+        onClick={ (e) => {
+          e.stopPropagation()
+          e.preventDefault()
+          getEvent({ id })
+        } }
+      >
+        <span className="timeline-dot" style={ style } />
+        <span className="event__title">{title}</span>
+      </div>
     </div>
   )
 }

@@ -8,11 +8,12 @@ class EventsStore extends BaseStore {
   constructor() {
     super()
     this.ref = "EVENTS"
-    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "FETCH_BY_TIMELINES_IDS", "GET" ])
+    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "FETCH_BY_TIMELINES_IDS", "GET", "TOGGLE_SELECTED" ])
     this.initialState = {
       data: [],
       isLoading: false,
       selected: null,
+      isShowSelected: false,
     }
     this.baseEndpoint = "events"
     this.reducer = this.reducer.bind(this)
@@ -34,6 +35,11 @@ class EventsStore extends BaseStore {
         return {
           ...state,
           isLoading: true,
+        }
+      case actions.TOGGLE_SELECTED.REQUEST:
+        return {
+          ...state,
+          isShowSelected: !state.isShowSelected,
         }
       case actions.FETCH.SUCCESS:
       case actions.FETCH_BY_TIMELINES_IDS.SUCCESS:
@@ -80,14 +86,15 @@ class EventsStore extends BaseStore {
 
   // CREATE
   // -----------------------------
-  * create({ action }) {
+  * create({ action: { values, onSuccess } }) {
     const params = {
       method: "POST",
       endpoint: this.baseEndpoint,
-      data: action,
+      data: values,
     }
     const { response } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
     if (response) {
+      yield call(onSuccess)
       // refetch events
       yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
       // refetch timelines
@@ -122,15 +129,24 @@ class EventsStore extends BaseStore {
   // GET
   // -----------------------------
   * get({ action }) {
-    const params = {
-      method: "GET",
-      endpoint: `${this.baseEndpoint}/${action.id}`,
+    const state = yield select()
+    const { selected } = state.events
+    if (!selected || (selected && selected.id !== action.id)) {
+      const params = {
+        method: "GET",
+        endpoint: `${this.baseEndpoint}/${action.id}`,
+      }
+      const { response } = yield call(this.callToAction, { actionType: this.actions.GET, params })
+      if (response) {
+        yield put({ type: this.actions.TOGGLE_SELECTED.REQUEST })
+      }
+    } else {
+      yield put({ type: this.actions.TOGGLE_SELECTED.REQUEST })
     }
-    yield call(this.callToAction, { actionType: this.actions.GET, params })
   }
 
   * watchGet() {
-    yield takeEvery(this.actions.GET.REQUEST, this.get)
+    yield takeLatest(this.actions.GET.REQUEST, this.get)
   }
 
   // FETCH BY TIMELINES IDS

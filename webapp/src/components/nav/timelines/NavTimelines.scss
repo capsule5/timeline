@@ -1,9 +1,12 @@
 .nav__timelines{
   padding:15px;
+  overflow: auto;
+  max-height: 100%;
+  
 }
 
 .nav__timeline{
-  display: flex
+  display: flex;
 }
 
 .toggle{

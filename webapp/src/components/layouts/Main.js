@@ -1,143 +1,163 @@
 import React from "react"
 import PropTypes from "prop-types"
-import classNames from "classnames"
-import { withStyles } from "@material-ui/core/styles"
-import Drawer from "@material-ui/core/Drawer"
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
 import Divider from "@material-ui/core/Divider"
 import IconButton from "@material-ui/core/IconButton"
 import MenuIcon from "@material-ui/icons/Menu"
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
-import ChevronRightIcon from "@material-ui/icons/ChevronRight"
+import CloseIcon from "@material-ui/icons/Close"
+import { withStyles } from "@material-ui/core/styles"
+import classNames from "classnames"
+import { compose } from "recompose"
+import withWidth, { isWidthDown } from "@material-ui/core/withWidth"
 
-const drawerWidth = 240
-
-const styles = (theme) => {
-  console.warn("[stab]", { theme })
-  return ({
-    root: {
+const navWidth = 240
+const styles = theme => ({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    [theme.breakpoints.up("sm")]: {
       display: "flex",
-      color: theme.palette.primary.main,
+      justifyContent: "space-around",
     },
-    appBar: {
-      transition: theme.transitions.create([ "margin", "width" ], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-      transition: theme.transitions.create([ "margin", "width" ], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginLeft: 12,
-      marginRight: 20,
-      position: "fixed",
-      zIndex: 10,
-    },
-    hide: {
-      display: "none",
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      color: "#FFF",
-    },
-    drawerPaper: {
-      width: drawerWidth,
-      background: "#282c34",
-    },
-    drawerHeader: {
-      display: "flex",
-      alignItems: "center",
-      padding: "0 8px",
-      ...theme.mixins.toolbar,
-      justifyContent: "flex-end",
-    },
-    content: {
-      flexGrow: 1,
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
-    },
-    contentShift: {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    },
-  })
-}
+  },
+  nav: {
+    paddingTop: 20,
+    color: "#FFF",
+  },
+  timeline: {
+    // minWidth: 500,
+  },
+  detail: {
+    minWidth: 500,
+    maxWidth: 500,
+  },
+  burgerButton: {
+    position: "fixed",
+    top: 0,
+    zIndex: 2,
+    background: "#282c34",
+  },
+  menuButton: {
+    color: "#FFF",
+  },
+  navPaper: {
+    width: navWidth,
+    background: "#282c34",
+    color: "#FFF",
+  },
+  detailPaper: {
+    width: "100%",
+    background: "#282c34",
+    color: "#FFF",
+  },
+  closeButton: {
+    color: "#FFF",
+    position: "fixed",
+    right: "0",
+    zIndex: 2,
+    background: "#282c34",
+  },
+})
 
 class MainLayout extends React.Component {
   state = {
-    open: false,
+    isNavOpen: false,
   }
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true })
+  toggleNav = isOpen => () => {
+    this.setState({ isNavOpen: isOpen })
   }
 
-  handleDrawerClose = () => {
-    this.setState({ open: false })
+  renderNav() {
+    const { isNavOpen } = this.state
+    const { nav, classes, width } = this.props
+    if (isWidthDown("sm", width)) {
+      return (
+        <div className="nav-drawer">
+          <IconButton
+            color="inherit"
+            aria-label="Open nav"
+            onClick={ this.toggleNav(true) }
+            className={ classNames(classes.menuButton, classes.burgerButton) }
+          >
+            <MenuIcon />
+          </IconButton>
+          <SwipeableDrawer
+            open={ isNavOpen }
+            onOpen={ this.toggleNav(true) }
+            onClose={ this.toggleNav(false) }
+            classes={ {
+              paper: classes.navPaper,
+            } }
+          >
+            <div>
+              <IconButton onClick={ this.toggleNav(false) } className={ classes.menuButton }>
+                <ChevronLeftIcon />
+              </IconButton>
+            </div>
+            <Divider />
+            {nav}
+          </SwipeableDrawer>
+        </div>
+      )
+    }
+    return <div className={ classes.nav }>{nav}</div>
   }
 
-  render() {
+  renderDetail() {
     const {
-      classes, theme, nav, mainContent,
+      detail, classes, isShowSelected, toggleSelectedEvent, width,
     } = this.props
-    const { open } = this.state
-
-    return (
-      <div className={ classes.root }>
-        <IconButton
-          color="inherit"
-          aria-label="Open drawer"
-          onClick={ this.handleDrawerOpen }
-          className={ classNames(classes.menuButton, open && classes.hide) }
-        >
-          <MenuIcon />
-        </IconButton>
-        <Drawer
-          className={ classes.drawer }
-          variant="persistent"
-          anchor="left"
-          open={ open }
+    // render mobile
+    if (isWidthDown("sm", width)) {
+      return (
+        <SwipeableDrawer
           classes={ {
-            paper: classes.drawerPaper,
+            paper: classes.detailPaper,
           } }
+          onClose={ toggleSelectedEvent }
+          variant="temporary"
+          open={ isShowSelected }
+          anchor="right"
         >
-          <div className={ classes.drawerHeader }>
-            <IconButton onClick={ this.handleDrawerClose } color="primary" variant="fab">
-              {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          <div>
+            <IconButton onClick={ toggleSelectedEvent } className={ classes.closeButton }>
+              <CloseIcon />
             </IconButton>
           </div>
           <Divider />
-          {nav}
-        </Drawer>
-        <main
-          className={ classNames(classes.content, {
-            [classes.contentShift]: open,
-          }) }
-        >
-          {mainContent}
-        </main>
+          {detail}
+        </SwipeableDrawer>
+      )
+    }
+    // render desktop
+    return <div className={ classes.detail }>{detail}</div>
+  }
+
+  renderTimeline() {
+    const { timeline, classes } = this.props
+    return <div className={ classes.timeline }>{timeline}</div>
+  }
+
+  render() {
+    const { classes } = this.props
+    return (
+      <div className={ classes.root }>
+        {this.renderNav()}
+        {this.renderTimeline()}
+        {this.renderDetail()}
       </div>
     )
   }
 }
 
 MainLayout.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   nav: PropTypes.element.isRequired,
-  mainContent: PropTypes.element.isRequired,
+  timeline: PropTypes.element.isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(MainLayout)
+export default compose(
+  withStyles(styles, { withTheme: true }),
+  withWidth()
+)(MainLayout)

@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import Hidden from "@material-ui/core/Hidden"
 import TimelineProvider from "./timeline/TimelineProvider"
 import EventFormProvider from "./ui/forms/event/EventFormProvider"
 import TimelineFormProvider from "./ui/forms/timeline/TimelineFormProvider"
@@ -9,14 +8,9 @@ import DetailEventProvider from "./detail/DetailEventProvider"
 import MainLayout from "./layouts/Main"
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
-  }
-
   renderNav() {
     return (
-      <div className="">
+      <>
         <FormDialog buttonText="+ timeline" formTitle="New timeline">
           <TimelineFormProvider />
         </FormDialog>
@@ -24,27 +18,19 @@ class App extends Component {
           <EventFormProvider />
         </FormDialog>
         <NavTimelinesProvider />
-      </div>
-    )
-  }
-
-  renderMainContent() {
-    return (
-      <div className="App">
-        <TimelineProvider />
-        <Hidden smDown>
-          <DetailEventProvider />
-        </Hidden>
-      </div>
+      </>
     )
   }
 
   render() {
+    const { isShowSelected, toggleSelectedEvent } = this.props
     return (
       <MainLayout
         nav={ this.renderNav() }
-        mainContent={ this.renderMainContent() }
+        timeline={ <TimelineProvider /> }
         detail={ <DetailEventProvider /> }
+        isShowSelected={ isShowSelected }
+        toggleSelectedEvent={ toggleSelectedEvent }
       />
     )
   }

@@ -10,40 +10,42 @@ class AppProvider extends Component {
   componentDidMount() {
     const { fetchTimelines } = this.props
     fetchTimelines()
-    console.log("INIT APP", process.env.NODE_ENV)
+    // console.log("INIT APP", process.env.NODE_ENV)
   }
 
   componentWillReceiveProps(nextProps) {
     const {
-      timelines, toggleTimeline, events, getEvent,
+      timelines, toggleTimeline,
     } = this.props
     // at start toggle first timeline
     if (timelines.length === 0 && nextProps.timelines.length > 0) {
       toggleTimeline({ id: nextProps.firstTimelineId })
     }
-    // select first event
-    if (events.length === 0 && nextProps.events.length > 0) {
-      getEvent({ id: nextProps.firstEventId })
-    }
+    // // select first event at start
+    // if (events.length === 0 && nextProps.events.length > 0) {
+    //   getEvent({ id: nextProps.firstEventId })
+    // }
   }
 
   render() {
-    return <App />
+    return <App { ...this.props } />
   }
 }
 
 const mapStateToProps = state => ({
   timelines: timelinesSelector.getAll(state),
   firstTimelineId: timelinesSelector.getFirstId(state),
-  events: eventsSelector.getAll(state),
+  // events: eventsSelector.getAll(state),
   firstEventId: eventsSelector.getFirstId(state),
+  isShowSelected: eventsSelector.isShowSelected(state),
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchTimelines: action => dispatch({ type: TimelinesStore.actions.FETCH.REQUEST, action }),
   toggleTimeline: action => dispatch({ type: TimelinesStore.actions.TOGGLE.REQUEST, action }),
   fetchEventsByTimelinesIds: () => dispatch({ type: EventsStore.actions.FETCH_BY_TIMELINES_IDS.REQUEST }),
-  getEvent: action => dispatch({ type: EventsStore.actions.GET.REQUEST, action }),
+  // getEvent: action => dispatch({ type: EventsStore.actions.GET.REQUEST, action }),
+  toggleSelectedEvent: action => dispatch({ type: EventsStore.actions.TOGGLE_SELECTED.REQUEST, action }),
 })
 
 export default connect(

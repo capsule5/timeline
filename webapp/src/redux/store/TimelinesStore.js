@@ -75,14 +75,17 @@ class TimelinesStore extends BaseStore {
 
   // CREATE
   // -----------------------------
-  * create({ action }) {
+  * create({ action: { values, onSuccess } }) {
     const params = {
       method: "POST",
       endpoint: this.baseEndpoint,
-      data: action,
+      data: values,
     }
     const { response } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
-    if (response) yield put({ type: this.actions.FETCH.REQUEST })
+    if (response) {
+      yield call(onSuccess)
+      yield put({ type: this.actions.FETCH.REQUEST })
+    }
   }
 
   * watchCreate() {

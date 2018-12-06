@@ -22,22 +22,27 @@ class FormDialog extends React.Component {
   render() {
     const { open } = this.state
     const {
-      children, buttonText, formTitle, fullScreen,
+      children,
+      buttonText,
+      formTitle,
+      fullScreen,
     } = this.props
+    const childrenWithProps = React.cloneElement(children, { closeDialog: this.handleClose })
+
     return (
       <div className="form-dialog">
-        <Button onClick={ this.handleClickOpen } variant="contained" color="primary" fullWidth className="form-dialog__button">
+        <Button
+          onClick={ this.handleClickOpen }
+          variant="contained"
+          color="primary"
+          fullWidth
+          className="form-dialog__button"
+        >
           {buttonText}
         </Button>
-        <Dialog
-          fullScreen={ fullScreen }
-          open={ open }
-          onClose={ this.handleClose }
-          fullWidth
-          maxWidth="sm"
-        >
+        <Dialog fullScreen={ fullScreen } open={ open } onClose={ this.handleClose } fullWidth maxWidth="sm">
           <DialogTitle id="form-dialog-title">{formTitle}</DialogTitle>
-          <DialogContent>{children}</DialogContent>
+          <DialogContent>{childrenWithProps}</DialogContent>
         </Dialog>
       </div>
     )

@@ -18,6 +18,11 @@ export const getSelectedId = createSelector(
   selected => (selected ? selected.id : null)
 )
 
+export const isShowSelected = createSelector(
+  [ eventsState ],
+  events => events.isShowSelected
+)
+
 export const getAllByDate = createSelector(
   [ getAll ], (events) => {
     const getGroup = (arr, key) => {
@@ -71,3 +76,5 @@ export const getAllByDate = createSelector(
 export const getFirstId = createSelector([ getAll ], (events) => {
   return events.length ? events[0].id : null
 })
+
+

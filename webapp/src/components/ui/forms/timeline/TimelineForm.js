@@ -5,7 +5,7 @@ import faker from "faker"
 import { FormField, FormSubmit } from ".."
 import "../Form.scss"
 
-const TimelineForm = ({ createTimeline }) => {
+const TimelineForm = ({ createTimeline, closeDialog }) => {
   return (
     <Formik
       initialValues={ {
@@ -22,7 +22,7 @@ const TimelineForm = ({ createTimeline }) => {
         ),
       }) }
       onSubmit={ (values, { setSubmitting }) => {
-        createTimeline(values)
+        createTimeline({ values, onSuccess: closeDialog })
         setSubmitting(false)
       } }
       render={ ({
