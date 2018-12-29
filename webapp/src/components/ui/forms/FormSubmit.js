@@ -1,7 +1,7 @@
 import React from "react"
 import Button from "@material-ui/core/Button"
 
-const FormSubmit = ({ isSubmitting }) => {
+const FormSubmit = ({ isSubmitting, submitText }) => {
   return (
     <div className="form__submit">
       {/* <button type="button" className="outline" onClick={ handleReset } disabled={ !dirty || isSubmitting }>
@@ -13,7 +13,7 @@ const FormSubmit = ({ isSubmitting }) => {
         variant="contained"
         color="primary"
       >
-        Enter
+        {submitText}
       </Button>
     </div>
   )

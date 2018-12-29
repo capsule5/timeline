@@ -59,7 +59,13 @@ const EventForm = ({ createEvent, timelines, closeDialog }) => {
             options={ timelinesOptions }
             { ...formikProps }
           />
-          <FormSubmit handleSubmit={ handleSubmit } handleReset={ handleReset } dirty={ dirty } isSubmitting={ isSubmitting } />
+          <FormSubmit
+            handleSubmit={ handleSubmit }
+            handleReset={ handleReset }
+            dirty={ dirty }
+            isSubmitting={ isSubmitting }
+            submitText="Create"
+          />
         </form>
       ) }
     />

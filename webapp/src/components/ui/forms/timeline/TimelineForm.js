@@ -31,7 +31,13 @@ const TimelineForm = ({ createTimeline, closeDialog }) => {
         <form onSubmit={ handleSubmit } className="form">
           <FormField name="title" label="Title" placeholder="Enter timeline title" type="text" { ...formikProps } />
           <FormField name="color_bg" label="Color" placeholder="Enter timeline color" type="text" { ...formikProps } />
-          <FormSubmit handleSubmit={ handleSubmit } handleReset={ handleReset } dirty={ dirty } isSubmitting={ isSubmitting } />
+          <FormSubmit
+            handleSubmit={ handleSubmit }
+            handleReset={ handleReset }
+            dirty={ dirty }
+            isSubmitting={ isSubmitting }
+            submitText="Create"
+          />
         </form>
       ) }
     />

@@ -1,3 +1,11 @@
 .form-dialog{
   margin:0 15px  15px 15px
 }
+
+.button--close{
+  color: #FFF;
+  position: absolute!important;
+  right: 0;
+  z-index: 2;
+  background: #282c34;
+}
