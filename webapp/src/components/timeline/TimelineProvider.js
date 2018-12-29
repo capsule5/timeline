@@ -13,6 +13,7 @@ class TimelineProvider extends Component {
 const mapStateToProps = state => ({
   selectedEventId: eventsSelector.getSelectedId(state),
   eventsByDate: eventsSelector.getAllByDate(state),
+  isShowSelected: eventsSelector.isShowSelected(state),
 })
 
 const mapDispatchToProps = dispatch => ({

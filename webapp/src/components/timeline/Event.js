@@ -6,7 +6,7 @@ const Event = ({
   const style = {
     backgroundColor: `${timeline.color_bg}`,
   }
-  const classes = `event ${isSelected && "event--selected"}`
+  const classes = `button event ${isSelected && "event--selected"}`
   return (
     <div style={ { display: "flex", alignItems: "flex-start" } }>
       <div

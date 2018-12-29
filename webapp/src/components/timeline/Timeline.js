@@ -25,11 +25,13 @@ export default class Timeline extends PureComponent {
   renderEventsPerDate({
     dom, year, month, day, values,
   }) {
-    const { deleteEvent, getEvent, selectedEventId } = this.props
+    const {
+      deleteEvent, getEvent, selectedEventId, isShowSelected,
+    } = this.props
 
     if (values.events) {
       const events = values.events.map(({ id, ...event }) => {
-        const isSelected = selectedEventId === id
+        const isSelected = isShowSelected && selectedEventId === id
         return (
           <Event
             { ...event }

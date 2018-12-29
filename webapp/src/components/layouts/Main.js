@@ -27,6 +27,7 @@ const styles = theme => ({
   },
   timeline: {
     // minWidth: 500,
+    flex: 1,
   },
   detail: {
     minWidth: 500,
@@ -131,8 +132,9 @@ class MainLayout extends React.Component {
         </SwipeableDrawer>
       )
     }
+
     // render desktop
-    return <div className={ classes.detail }>{detail}</div>
+    return isShowSelected && <div className={ classes.detail }>{detail}</div>
   }
 
   renderTimeline() {

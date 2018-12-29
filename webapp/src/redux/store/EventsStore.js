@@ -54,8 +54,15 @@ class EventsStore extends BaseStore {
           selected: action.response.data,
           isLoading: false,
         }
-      case actions.CREATE.SUCCESS:
       case actions.DELETE.SUCCESS:
+        // since we delete from the selected event
+        return {
+          ...state,
+          selected: null,
+          isShowSelected: false,
+          isLoading: false,
+        }
+      case actions.CREATE.SUCCESS:
       case actions.FETCH.FAILURE:
       case actions.FETCH_BY_TIMELINES_IDS.FAILURE:
       case actions.CREATE.FAILURE:
@@ -130,14 +137,14 @@ class EventsStore extends BaseStore {
   // -----------------------------
   * get({ action }) {
     const state = yield select()
-    const { selected } = state.events
+    const { selected, isShowSelected } = state.events
     if (!selected || (selected && selected.id !== action.id)) {
       const params = {
         method: "GET",
         endpoint: `${this.baseEndpoint}/${action.id}`,
       }
       const { response } = yield call(this.callToAction, { actionType: this.actions.GET, params })
-      if (response) {
+      if (response && !isShowSelected) {
         yield put({ type: this.actions.TOGGLE_SELECTED.REQUEST })
       }
     } else {

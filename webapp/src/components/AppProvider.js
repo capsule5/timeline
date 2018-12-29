@@ -35,7 +35,6 @@ class AppProvider extends Component {
 const mapStateToProps = state => ({
   timelines: timelinesSelector.getAll(state),
   firstTimelineId: timelinesSelector.getFirstId(state),
-  // events: eventsSelector.getAll(state),
   firstEventId: eventsSelector.getFirstId(state),
   isShowSelected: eventsSelector.isShowSelected(state),
 })
@@ -44,7 +43,6 @@ const mapDispatchToProps = dispatch => ({
   fetchTimelines: action => dispatch({ type: TimelinesStore.actions.FETCH.REQUEST, action }),
   toggleTimeline: action => dispatch({ type: TimelinesStore.actions.TOGGLE.REQUEST, action }),
   fetchEventsByTimelinesIds: () => dispatch({ type: EventsStore.actions.FETCH_BY_TIMELINES_IDS.REQUEST }),
-  // getEvent: action => dispatch({ type: EventsStore.actions.GET.REQUEST, action }),
   toggleSelectedEvent: action => dispatch({ type: EventsStore.actions.TOGGLE_SELECTED.REQUEST, action }),
 })
 
