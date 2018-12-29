@@ -10,7 +10,7 @@ const DeleteButton = ({ action, id }) => {
       } }
       type="button"
     >
-      x
+      [delete]
     </button>
   )
 }

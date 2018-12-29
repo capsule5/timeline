@@ -1,4 +1,5 @@
 import React from "react"
+import "./Event.scss"
 
 const Event = ({
   id, title, timeline, getEvent, isSelected,

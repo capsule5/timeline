@@ -3,8 +3,11 @@ import ReactDOM from "react-dom"
 import "./index.scss"
 // import * as serviceWorker from "./serviceWorker"
 import { Provider } from "react-redux"
+import initReactFastclick from "react-fastclick"
 import AppProvider from "./components/AppProvider"
 import configStore from "./redux/configStore"
+
+initReactFastclick()
 
 const store = configStore()
 

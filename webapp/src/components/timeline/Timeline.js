@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react"
-import Event from "./Event"
+import Event from "./event/Event"
 import { formatMonth, formatDay } from "../../utils/date"
 import "./Timeline.scss"
 

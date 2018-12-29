@@ -1,0 +1,47 @@
+@import '../../../assets/styles/variables';
+
+.event{
+  padding: 5px 5px;
+  border-radius: 3px;
+  margin-bottom:10px;
+  position: relative;
+  cursor: pointer;
+  display:flex;
+  align-items: flex-start;
+
+  &:last-child{
+    margin-bottom: 0;
+  }
+
+  &--selected{
+    background-color: darken(#345E75,0)
+  }
+
+  @media only screen and (min-width: 600px) {
+    &:hover{
+      background-color: darken(#345E75,0)
+    }
+  }
+
+  .timeline-dot{
+    margin-top: 5px;
+    margin-right: 8px;
+  }
+
+  &__title{
+    display: inline-block;
+    font-size:13px;
+    @media only screen and (min-width: 600px) {
+      font-size:inherit;
+    }
+  }
+  
+  &__label{
+    background-color:$active;
+    color:#282c34;
+    border-radius: 3px;
+    padding: 3px;
+    font-weight: bold;
+    font-size:11px;
+  }
+}

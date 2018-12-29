@@ -1,11 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer"
-import Divider from "@material-ui/core/Divider"
-import IconButton from "@material-ui/core/IconButton"
 import MenuIcon from "@material-ui/icons/Menu"
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft"
-import CloseIcon from "@material-ui/icons/Close"
+import Fab from "@material-ui/core/Fab"
 import { withStyles } from "@material-ui/core/styles"
 import classNames from "classnames"
 import { compose } from "recompose"
@@ -35,14 +32,15 @@ const styles = theme => ({
   },
   burgerButton: {
     position: "fixed",
-    top: 0,
+    top: 10,
+    left: 10,
     zIndex: 2,
-    background: "#282c34",
   },
   menuButton: {
     color: "#FFF",
   },
   navPaper: {
+    paddingTop: 20,
     width: navWidth,
     background: "#282c34",
     color: "#FFF",
@@ -76,14 +74,14 @@ class MainLayout extends React.Component {
     if (isWidthDown("sm", width)) {
       return (
         <div className="nav-drawer">
-          <IconButton
-            color="inherit"
+          <Fab
+            color="primary"
             aria-label="Open nav"
             onClick={ this.toggleNav(true) }
             className={ classNames(classes.menuButton, classes.burgerButton) }
           >
             <MenuIcon />
-          </IconButton>
+          </Fab>
           <SwipeableDrawer
             open={ isNavOpen }
             onOpen={ this.toggleNav(true) }
@@ -92,12 +90,12 @@ class MainLayout extends React.Component {
               paper: classes.navPaper,
             } }
           >
-            <div>
+            {/* <div>
               <IconButton onClick={ this.toggleNav(false) } className={ classes.menuButton }>
                 <ChevronLeftIcon />
               </IconButton>
             </div>
-            <Divider />
+            <Divider /> */}
             {nav}
           </SwipeableDrawer>
         </div>
@@ -122,12 +120,12 @@ class MainLayout extends React.Component {
           open={ isShowSelected }
           anchor="right"
         >
-          <div>
+          {/* <div>
             <IconButton onClick={ toggleSelectedEvent } className={ classes.closeButton }>
               <CloseIcon />
             </IconButton>
           </div>
-          <Divider />
+          <Divider /> */}
           {detail}
         </SwipeableDrawer>
       )
