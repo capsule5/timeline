@@ -76,9 +76,14 @@
     margin-bottom: 0;
   }
 
-  &:hover,
   &--selected{
-    background-color: darken(#282c34,20)
+    background-color: darken(#345E75,0)
+  }
+
+  @media only screen and (min-width: 600px) {
+    &:hover{
+      background-color: darken(#345E75,0)
+    }
   }
 
   .timeline-dot{

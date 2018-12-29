@@ -1,7 +1,9 @@
 import { put, call } from "redux-saga/effects"
 import axios from "axios"
 
-const API_BASE_URL = process.env.NODE_ENV === "production" ? "http://46.101.243.149/api/" : "http://localhost:3003/"
+const API_LOCAL = "http://192.168.0.11:3003/" // "http://localhost:3003/" //
+const API_PROD = "http://46.101.243.149/api/"
+const API_BASE_URL = process.env.NODE_ENV === "production" ? API_PROD : API_LOCAL
 
 class BaseStore {
   constructor() {
