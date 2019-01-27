@@ -13,10 +13,10 @@ class Event extends BaseModel {
       required: [ 'title' ],
       properties: {
         title: { type: 'string', minLength: 3, maxLength: 255 },
-        date_year: { type: 'integer' },
-        date_month: { type: 'integer', minimum: 1, maximum: 12, nullable: true },
-        date_day: { type: 'integer', minimum: 1, maximum: 31, nullable: true },
-        date_reliability: { type: 'integer', minimum: 1, maximum: 3 },
+        dateYear: { type: 'integer' },
+        dateMonth: { type: 'integer', minimum: 1, maximum: 12, nullable: true },
+        dateDay: { type: 'integer', minimum: 1, maximum: 31, nullable: true },
+        dateReliability: { type: 'integer', minimum: 1, maximum: 3 },
       },
     }
   }
@@ -28,7 +28,7 @@ class Event extends BaseModel {
         relation: Model.BelongsToOneRelation,
         modelClass: Timeline,
         join: {
-          from: 'events.timelines_id',
+          from: 'events.timelinesId',
           to: 'timelines.id',
         },
       },

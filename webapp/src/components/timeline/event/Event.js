@@ -5,7 +5,7 @@ const Event = ({
   id, title, timeline, getEvent, isSelected,
 }) => {
   const style = {
-    backgroundColor: `${timeline.color_bg}`,
+    backgroundColor: `${timeline.colorBg}`,
   }
   const classes = `button event ${isSelected && "event--selected"}`
   return (

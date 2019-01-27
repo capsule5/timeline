@@ -38,12 +38,12 @@ export const getAllByDate = createSelector(
     }
 
     const eventsByDate = {
-      years: groupByArray(events, "date_year"),
+      years: groupByArray(events, "dateYear"),
     }
 
     const { years } = eventsByDate
     years.forEach((year) => {
-      const groupByMonths = getGroup(year.values, "date_month")
+      const groupByMonths = getGroup(year.values, "dateMonth")
       year.values = {
         events: groupByMonths.withNoKey, // no months
         months: groupByMonths.withKey,
@@ -52,7 +52,7 @@ export const getAllByDate = createSelector(
       const { months } = year.values
       if (months) {
         months.forEach((month) => {
-          const groupByDays = getGroup(month.values, "date_day")
+          const groupByDays = getGroup(month.values, "dateDay")
           month.values = {
             events: groupByDays.withNoKey, // no days
             days: groupByDays.withKey,

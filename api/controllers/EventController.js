@@ -4,9 +4,9 @@ import { handleError, handleSuccessOrErrorMessage } from './helpers'
 class EventController {
   static all(req, res) {
     return Event.query()
-      .orderBy('date_year', 'asc')
-      .orderBy('date_month', 'asc')
-      .orderBy('date_day', 'asc')
+      .orderBy('dateYear', 'asc')
+      .orderBy('dateMonth', 'asc')
+      .orderBy('dateDay', 'asc')
       .eager('timeline')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))
@@ -15,10 +15,10 @@ class EventController {
   static someByTimelinesIds(req, res) {
     const { ids } = req.query
     return Event.query()
-      .whereIn('timelines_id', JSON.parse(ids))
-      .orderBy('date_year', 'asc')
-      .orderBy('date_month', 'asc')
-      .orderBy('date_day', 'asc')
+      .whereIn('timelinesId', JSON.parse(ids))
+      .orderBy('dateYear', 'asc')
+      .orderBy('dateMonth', 'asc')
+      .orderBy('dateDay', 'asc')
       .eager('timeline')
       .then(data => res.send(data))
       .catch(err => handleError(err, res))

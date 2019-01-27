@@ -8,12 +8,12 @@ class TimelineToggle extends Component {
 
   render() {
     const {
-      id, title, color_bg, toggleTimeline, selectedTimelines, eventsCount,
+      id, title, colorBg, toggleTimeline, selectedTimelines, eventsCount,
     } = this.props
     const isSelected = selectedTimelines.includes(id)
     const classNames = `toggle ${isSelected && "toggle--selected"}`
     const style = {
-      backgroundColor: `${color_bg}`,
+      backgroundColor: `${colorBg}`,
     }
 
     return (

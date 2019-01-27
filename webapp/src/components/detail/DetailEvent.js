@@ -6,11 +6,11 @@ import DeleteButton from "../ui/buttons/DeleteButton"
 class DetailEvent extends Component {
   renderDate() {
     const {
-      date_year, date_month, date_day,
+      dateYear, dateMonth, dateDay,
     } = this.props
-    const d = date_day ? ` ${formatDay(date_day)} ` : ""
-    const m = date_month ? ` ${formatMonth(date_month)} ` : ""
-    const y = date_year ? ` ${date_year} ` : ""
+    const d = dateDay ? ` ${formatDay(dateDay)} ` : ""
+    const m = dateMonth ? ` ${formatMonth(dateMonth)} ` : ""
+    const y = dateYear ? ` ${dateYear} ` : ""
     return y + m + d
   }
 
@@ -20,7 +20,7 @@ class DetailEvent extends Component {
     } = this.props
 
     const style = {
-      backgroundColor: timeline.color_bg,
+      backgroundColor: timeline.colorBg,
     }
 
     return (

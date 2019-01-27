@@ -93,20 +93,27 @@ class EventsStore extends BaseStore {
 
   // CREATE
   // -----------------------------
-  * create({ action: { values, onSuccess } }) {
+  * create({
+    action: {
+      values, setErrors, setSubmitting, onSuccess,
+    },
+  }) {
     const params = {
       method: "POST",
       endpoint: this.baseEndpoint,
       data: values,
     }
-    const { response } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
+    const { response, error } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
     if (response) {
       yield call(onSuccess)
       // refetch events
       yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
       // refetch timelines
       yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
+    } else {
+      yield call(setErrors, { fromApi: error.response.data })
     }
+    yield call(setSubmitting, false)
   }
 
   * watchCreate() {

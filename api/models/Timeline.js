@@ -26,7 +26,7 @@ class Timeline extends BaseModel {
         // filter: query => query.select('id', 'title'),
         join: {
           from: 'timelines.id',
-          to: 'events.timelines_id',
+          to: 'events.timelinesId',
         },
       },
     }

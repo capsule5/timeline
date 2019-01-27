@@ -9,7 +9,7 @@ exports.seed = function(knex, Promise) {
       for (let index = 0; index < 10; index++) {
         fakes.push({
           title: faker.commerce.department(),
-          color_bg: faker.internet.color(),
+          colorBg: faker.internet.color(),
         })
       }
       // Inserts seed entries

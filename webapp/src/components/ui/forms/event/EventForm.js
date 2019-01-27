@@ -2,7 +2,7 @@ import React from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
 import faker from "faker"
-import { FormField, FormSubmit } from ".."
+import { FormField, FormSubmit, FormApiErrors } from ".."
 import "../Form.scss"
 
 const EventForm = ({ createEvent, timelines, closeDialog }) => {
@@ -13,50 +13,56 @@ const EventForm = ({ createEvent, timelines, closeDialog }) => {
     <Formik
       initialValues={ {
         title: faker.lorem.sentence(), // fake data
-        date_year: faker.random.number({ min: -3000, max: 2018 }), // fake data
-        date_month: undefined,
-        date_day: undefined,
-        date_reliability: 1,
-        timelines_id: lastTimelineId,
+        dateYear: faker.random.number({ min: -3000, max: 2018 }), // fake data
+        dateMonth: undefined,
+        dateDay: undefined,
+        dateReliability: 1,
+        timelinesId: lastTimelineId,
       } }
       validationSchema={ Yup.object().shape({
         title: Yup.string()
           .min(3)
           .required(),
-        date_year: Yup.number().required(),
-        date_month: Yup.number()
+        dateYear: Yup.number().required(),
+        dateMonth: Yup.number()
           .min(1)
           .max(12),
-        date_day: Yup.number()
+        dateDay: Yup.number()
           .min(1)
           .max(31),
-        date_reliability: Yup.number(),
-        timelines_id: Yup.number().required(),
+        dateReliability: Yup.number(),
+        timelinesId: Yup.number().required(),
       }) }
-      onSubmit={ (values, { setSubmitting }) => {
-        createEvent({ values, onSuccess: closeDialog })
-        setSubmitting(false)
+      onSubmit={ (values, { setSubmitting, setErrors }) => {
+        createEvent({
+          values,
+          setErrors,
+          setSubmitting,
+          onSuccess: closeDialog,
+        })
       } }
       render={ ({
-        handleSubmit, handleReset, dirty, isSubmitting, ...formikProps
+        handleSubmit, handleReset, dirty, isSubmitting, errors, ...formikProps
       }) => (
         <form onSubmit={ handleSubmit } className="form">
-          <FormField name="title" label="Title" type="text" { ...formikProps } />
-          <FormField name="date_year" label="Year" type="number" { ...formikProps } />
-          <FormField name="date_month" label="Month" type="number" { ...formikProps } />
-          <FormField name="date_day" label="Day" type="number" { ...formikProps } />
+          <FormField name="title" label="Title" type="text" errors={ errors } { ...formikProps } />
+          <FormField name="dateYear" label="Year" type="number" errors={ errors } { ...formikProps } />
+          <FormField name="dateMonth" label="Month" type="number" errors={ errors } { ...formikProps } />
+          <FormField name="dateDay" label="Day" type="number" errors={ errors } { ...formikProps } />
           <FormField
-            name="date_reliability"
+            name="dateReliability"
             helperText="Date reliability"
             type="select"
             options={ [ 1, 2, 3 ] }
+            errors={ errors }
             { ...formikProps }
           />
           <FormField
-            name="timelines_id"
+            name="timelinesId"
             helperText="select a timeline"
             type="select"
             options={ timelinesOptions }
+            errors={ errors }
             { ...formikProps }
           />
           <FormSubmit
@@ -66,6 +72,7 @@ const EventForm = ({ createEvent, timelines, closeDialog }) => {
             isSubmitting={ isSubmitting }
             submitText="Create"
           />
+          <FormApiErrors errors={ errors } />
         </form>
       ) }
     />
