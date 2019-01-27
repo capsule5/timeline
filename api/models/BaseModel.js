@@ -1,6 +1,7 @@
 // https://cswr.github.io/JsonSchema/spec/basic_types/
 import { Model } from 'objection'
 import knex from '../config/database'
+import bcrypt from 'bcrypt'
 
 Model.knex(knex)
 
@@ -13,6 +14,14 @@ class BaseModel extends Model {
         json[key] = parseInt(json[key])
       }
     })
+  }
+
+  $beforeInsert(context) {
+    super.$beforeInsert(context)
+    const { password } = this
+    if (password) {
+      this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    }
   }
 }
 
