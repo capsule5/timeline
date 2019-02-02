@@ -115,6 +115,7 @@ class MainLayout extends React.Component {
           classes={ {
             paper: classes.detailPaper,
           } }
+          onOpen={ () => {} }
           onClose={ toggleSelectedEvent }
           variant="temporary"
           open={ isShowSelected }

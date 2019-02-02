@@ -1,7 +1,8 @@
 import { put, call } from "redux-saga/effects"
 import axios from "axios"
+import jwt from "jsonwebtoken"
 
-const API_LOCAL = "http://localhost:3003/" // "http://192.168.0.11:3003/" // 
+const API_LOCAL = "http://localhost:3003/"
 const API_PROD = "http://46.101.243.149/api/"
 const API_BASE_URL = process.env.NODE_ENV === "production" ? API_PROD : API_LOCAL
 
@@ -26,11 +27,31 @@ class BaseStore {
     }, {})
   }
 
+  removeToken() {
+    localStorage.removeItem("jwtToken")
+  }
+
+  storeToken(token) {
+    localStorage.setItem("jwtToken", token)
+    console.warn("[stab]", { jwt: this.getToken() })
+  }
+
+  getToken() {
+    return localStorage.getItem("jwtToken")
+  }
+
+  getTokenDecoded() {
+    return jwt.decode(this.getToken())
+  }
+
   api({ method, endpoint, data = {} }) {
     return axios({
       url: `${API_BASE_URL}${endpoint}`,
       method,
       data,
+      headers: {
+        secret_token: this.getToken(),
+      },
     })
       .then((response) => {
         console.log("API success", method, endpoint, response.data)

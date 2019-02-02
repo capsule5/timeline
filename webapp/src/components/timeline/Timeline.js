@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react"
+import faker from "faker"
 import Event from "./event/Event"
 import { formatMonth, formatDay } from "../../utils/date"
 import "./Timeline.scss"
@@ -29,6 +30,9 @@ export default class Timeline extends PureComponent {
       deleteEvent, getEvent, selectedEventId, isShowSelected,
     } = this.props
 
+    // this is bad
+    const fakeKey = `${faker.internet.password()}`
+
     if (values.events) {
       const events = values.events.map(({ id, ...event }) => {
         const isSelected = isShowSelected && selectedEventId === id
@@ -44,13 +48,16 @@ export default class Timeline extends PureComponent {
         )
       })
       dom.push(
-        <div className={ `timeline__group timeline__group--${this.getTimeUnit({ year, month, day })}` }>
+        <div
+          key={ fakeKey }
+          className={ `timeline__group timeline__group--${this.getTimeUnit({ year, month, day })}` }
+        >
           {this.renderDate({ year, month, day })}
           <div className="timeline__events">{events}</div>
         </div>
       )
     } else {
-      dom.push(<div className="timeline__group">{this.renderDate({ year, month, day })}</div>)
+      dom.push(<div key={ fakeKey } className="timeline__group">{this.renderDate({ year, month, day })}</div>)
     }
 
     return dom

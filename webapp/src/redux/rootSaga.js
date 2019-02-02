@@ -1,8 +1,11 @@
 import { all } from "redux-saga/effects"
-import { EventsStore, TimelinesStore } from "./store"
+import {
+  EventsStore, TimelinesStore, UserStore, InitStore,
+} from "./store"
 
 export default function* rootSaga() {
   yield all([
+    InitStore.watchInit(),
     EventsStore.watchFetch(),
     EventsStore.watchFetchByTimelinesIds(),
     EventsStore.watchCreate(),
@@ -12,5 +15,9 @@ export default function* rootSaga() {
     TimelinesStore.watchCreate(),
     TimelinesStore.watchDelete(),
     TimelinesStore.watchToggle(),
+    UserStore.watchCreate(),
+    UserStore.watchLogin(),
+    UserStore.watchLogout(),
+    UserStore.watchGet(),
   ])
 }

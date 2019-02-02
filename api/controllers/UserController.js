@@ -9,7 +9,10 @@ class UserController {
     return User.query()
       .where({ id })
       .first()
-      .then(data => res.send(data))
+      .then(data => {
+        const { id, firstName, lastName, email } = data
+        return res.send({ user: { id, firstName, lastName, email } })
+      })
       .catch(err => handleError(err, res))
   }
 
@@ -17,7 +20,10 @@ class UserController {
   static create(req, res, next) {
     return User.query()
       .insert(req.body)
-      .then(data => res.send(data))
+      .then(data => {
+        // login immediately on register success
+        UserController.login(req, res)
+      })
       .catch(err => handleError(err, res))
   }
 
@@ -50,13 +56,14 @@ class UserController {
           user,
         })
       }
-      console.warn('login', { expiresIn: process.env.JWT_EXPIRATION })
+
+      const { id, firstName, lastName, email } = user
       const token = jwt.sign(
-        { user: user.email },
+        { id, email },
         process.env.JWT_SECRET_OR_KEY,
-        { expiresIn: process.env.JWT_EXPIRATION } // 30s // process.env.JWT_EXPIRATION
+        { expiresIn: process.env.JWT_EXPIRATION } // 30s
       )
-      return res.send({ user, token })
+      return res.send({ user: { id, firstName, lastName, email }, token })
     })(req, res)
   }
 

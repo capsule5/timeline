@@ -1,32 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { EventsStore, TimelinesStore } from "../redux/store"
-import { timelinesSelector, eventsSelector } from "../redux/selectors"
+import { EventsStore, UserStore } from "../redux/store"
+import { timelinesSelector, eventsSelector, userSelector } from "../redux/selectors"
 import App from "./App"
 import "./App.scss"
 
 class AppProvider extends Component {
-  componentDidMount() {
-    const { fetchTimelines } = this.props
-    fetchTimelines()
-    // console.log("INIT APP", process.env.NODE_ENV)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {
-      timelines, toggleTimeline,
-    } = this.props
-    // at start toggle first timeline
-    if (timelines.length === 0 && nextProps.timelines.length > 0) {
-      toggleTimeline({ id: nextProps.firstTimelineId })
-    }
-    // // select first event at start
-    // if (events.length === 0 && nextProps.events.length > 0) {
-    //   getEvent({ id: nextProps.firstEventId })
-    // }
-  }
-
   render() {
     return <App { ...this.props } />
   }
@@ -37,13 +17,14 @@ const mapStateToProps = state => ({
   firstTimelineId: timelinesSelector.getFirstId(state),
   firstEventId: eventsSelector.getFirstId(state),
   isShowSelected: eventsSelector.isShowSelected(state),
+  isAuthenticated: userSelector.isAuthenticated(state),
+  user: userSelector.getAuthenticated(state),
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchTimelines: action => dispatch({ type: TimelinesStore.actions.FETCH.REQUEST, action }),
-  toggleTimeline: action => dispatch({ type: TimelinesStore.actions.TOGGLE.REQUEST, action }),
   fetchEventsByTimelinesIds: () => dispatch({ type: EventsStore.actions.FETCH_BY_TIMELINES_IDS.REQUEST }),
   toggleSelectedEvent: action => dispatch({ type: EventsStore.actions.TOGGLE_SELECTED.REQUEST, action }),
+  logout: () => dispatch({ type: UserStore.actions.LOGOUT.REQUEST }),
 })
 
 export default connect(

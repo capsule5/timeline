@@ -18,6 +18,7 @@ class FormDialog extends React.Component {
   }
 
   handleClose = () => {
+    console.warn("close")
     this.setState({ open: false })
   }
 
@@ -39,7 +40,7 @@ class FormDialog extends React.Component {
         >
           {buttonText}
         </Button>
-        <Dialog fullScreen={ fullScreen } open={ open } onClose={ this.handleClose } fullWidth maxWidth="sm">
+        <Dialog fullScreen={ fullScreen } open={ open } fullWidth maxWidth="sm">
           <IconButton onClick={ this.handleClose } className="button--close">
             <CloseIcon />
           </IconButton>
