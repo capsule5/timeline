@@ -8,7 +8,15 @@ class EventsStore extends BaseStore {
   constructor() {
     super()
     this.ref = "EVENTS"
-    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "FETCH_BY_TIMELINES_IDS", "GET", "TOGGLE_SELECTED" ])
+    this.actions = this.createActions([
+      "FETCH",
+      "CREATE",
+      "DELETE",
+      "FETCH_BY_TIMELINES_IDS",
+      "GET",
+      "TOGGLE_SELECTED",
+      "CLEAR",
+    ])
     this.initialState = {
       data: [],
       isLoading: false,
@@ -62,6 +70,11 @@ class EventsStore extends BaseStore {
           isShowSelected: false,
           isLoading: false,
         }
+      case actions.CLEAR.REQUEST:
+        return {
+          ...state,
+          data: [],
+        }
       case actions.CREATE.SUCCESS:
       case actions.FETCH.FAILURE:
       case actions.FETCH_BY_TIMELINES_IDS.FAILURE:
@@ -109,7 +122,7 @@ class EventsStore extends BaseStore {
       // refetch events
       yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
       // refetch timelines
-      yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
+      yield call(TimelinesStore.set)
     } else {
       yield call(setErrors, { fromApi: error.response.data })
     }
@@ -132,7 +145,7 @@ class EventsStore extends BaseStore {
       // refetch events
       yield put({ type: this.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
       // refetch timelines
-      yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
+      yield call(TimelinesStore.set)
     }
   }
 

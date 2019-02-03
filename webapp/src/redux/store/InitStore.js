@@ -1,5 +1,6 @@
+import { delay } from "redux-saga"
 import {
-  call, select, takeLatest, put, take,
+  call, select, takeLatest, put, take, race,
 } from "redux-saga/effects"
 import BaseStore from "./BaseStore"
 import TimelinesStore from "./TimelinesStore"
@@ -20,21 +21,22 @@ class InitStore extends BaseStore {
     if (jwt && jwt.id) {
       // get user
       yield put({ type: UserStore.actions.GET.REQUEST, action: { id: jwt.id } })
+    } else {
+      yield put({ type: UserStore.actions.GET.REQUEST, action: { id: "anon" } })
+      console.log("JWT doesn't exist", jwt)
     }
   }
 
   * init() {
     yield call(this.getAuthenticatedUser)
-    // fetch timelines
-    yield put({ type: TimelinesStore.actions.FETCH.REQUEST })
-    // wait for timelines
-    yield take(TimelinesStore.actions.FETCH.SUCCESS)
-    // get timelines
-    const timelines = yield select(state => state.timelines.data)
-    // toggle the first one
-    if (timelines.length) {
-      yield put({ type: TimelinesStore.actions.TOGGLE.REQUEST, action: { id: timelines[0].id } })
-    }
+    // try to retrieve auth user
+    yield race({
+      getUserSuccess: take(UserStore.actions.GET.SUCCESS),
+      getUserFailure: take(UserStore.actions.GET.FAILURE),
+      timeout: delay(3000),
+    })
+    // set timelines
+    yield call(TimelinesStore.set)
   }
 
   * watchInit() {

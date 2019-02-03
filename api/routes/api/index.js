@@ -14,6 +14,7 @@ router.post('/login', UserController.login)
 router.get('/users/:id', passport.authenticate('jwt', { session: false }), UserController.get)
 router.put('/users', passport.authenticate('jwt', { session: false }), UserController.update)
 router.delete('/users', passport.authenticate('jwt', { session: false }), UserController.destroy)
+router.get('/users/:id/timelines', passport.authenticate('jwt', { session: false }), TimelineController.allByUserId)
 
 // Events
 router.get('/events', EventController.all)

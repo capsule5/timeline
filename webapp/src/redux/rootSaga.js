@@ -15,6 +15,7 @@ export default function* rootSaga() {
     TimelinesStore.watchCreate(),
     TimelinesStore.watchDelete(),
     TimelinesStore.watchToggle(),
+    TimelinesStore.watchFetchByUserId(),
     UserStore.watchCreate(),
     UserStore.watchLogin(),
     UserStore.watchLogout(),

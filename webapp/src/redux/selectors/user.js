@@ -9,5 +9,5 @@ export const getAuthenticated = createSelector(
 
 export const isAuthenticated = createSelector(
   [ getAuthenticated ],
-  authenticated => Object.keys(authenticated).length
+  authenticated => Object.keys(authenticated).length > 0
 )

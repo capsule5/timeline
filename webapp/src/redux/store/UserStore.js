@@ -1,5 +1,5 @@
-import { call, takeLatest } from "redux-saga/effects"
-import BaseStore from "./BaseStore"
+import { call, takeLatest, put } from "redux-saga/effects"
+import { BaseStore, TimelinesStore, EventsStore } from "."
 
 class UserStore extends BaseStore {
   constructor() {
@@ -73,6 +73,8 @@ class UserStore extends BaseStore {
     if (response) {
       this.storeToken(response.data.token)
       yield call(onSuccess)
+      yield put({ type: EventsStore.actions.CLEAR.REQUEST })
+      yield call(TimelinesStore.set)
     } else {
       yield call(setErrors, { fromApi: error.response.data })
     }
@@ -99,7 +101,7 @@ class UserStore extends BaseStore {
     if (response) {
       this.storeToken(response.data.token)
       yield call(onSuccess)
-      // yield put({ type: InitStore.actions.INIT.REQUEST })
+      yield call(TimelinesStore.set)
     } else {
       yield call(setErrors, { fromApi: error.response.data })
     }
@@ -119,6 +121,7 @@ class UserStore extends BaseStore {
     // }
     // const { response } = yield call(this.callToAction, { actionType: this.actions.LOGOUT, params })
     yield call(this.removeToken)
+    // yield call(this.storeToken, "false")
     // yield put({ type: this.actions.LOGOUT.SUCCESS })
     window.location.reload()
   }

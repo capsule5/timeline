@@ -10,6 +10,8 @@ exports.seed = function(knex, Promise) {
         fakes.push({
           title: faker.commerce.department(),
           colorBg: faker.internet.color(),
+          usersId: faker.random.number({ min: 1, max: 3 }),
+          isPublic: faker.random.number({ min: 0, max: 1 }),
         })
       }
       // Inserts seed entries

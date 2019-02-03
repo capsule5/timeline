@@ -27,6 +27,7 @@ class App extends Component {
     const {
       user: { firstName, lastName },
       logout,
+      firstTimelineId,
     } = this.props
     return (
       <>
@@ -39,15 +40,17 @@ class App extends Component {
             fullWidth
             className="form-dialog__button"
           >
-          logout
+            logout
           </Button>
         </div>
         <FormDialog buttonText="+ timeline" formTitle="New timeline">
           <TimelineFormProvider />
         </FormDialog>
-        <FormDialog buttonText="+ event" formTitle="New event">
-          <EventFormProvider />
-        </FormDialog>
+        {firstTimelineId && (
+          <FormDialog buttonText="+ event" formTitle="New event">
+            <EventFormProvider />
+          </FormDialog>
+        )}
       </>
     )
   }

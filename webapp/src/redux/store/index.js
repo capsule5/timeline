@@ -1,3 +1,4 @@
+export { default as BaseStore } from "./BaseStore"
 export { default as InitStore } from "./InitStore"
 export { default as EventsStore } from "./EventsStore"
 export { default as TimelinesStore } from "./TimelinesStore"

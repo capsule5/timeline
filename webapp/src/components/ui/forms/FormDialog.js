@@ -18,7 +18,6 @@ class FormDialog extends React.Component {
   }
 
   handleClose = () => {
-    console.warn("close")
     this.setState({ open: false })
   }
 

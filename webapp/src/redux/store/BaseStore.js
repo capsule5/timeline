@@ -10,6 +10,8 @@ class BaseStore {
   constructor() {
     this.api = this.api.bind(this)
     this.callToAction = this.callToAction.bind(this)
+    this.getToken = this.getToken.bind(this)
+    this.storeToken = this.storeToken.bind(this)
   }
 
   createActions(actions) {
@@ -33,7 +35,7 @@ class BaseStore {
 
   storeToken(token) {
     localStorage.setItem("jwtToken", token)
-    console.warn("[stab]", { jwt: this.getToken() })
+    // console.warn("[stab]", { jwt: this.getToken() })
   }
 
   getToken() {

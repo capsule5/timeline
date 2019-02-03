@@ -1,14 +1,14 @@
 import {
-  call, takeEvery, takeLatest, select, put,
+  call, takeEvery, takeLatest, select, put, take,
 } from "redux-saga/effects"
-import BaseStore from "./BaseStore"
-import Events from "./EventsStore"
+import { BaseStore, EventsStore, UserStore } from "."
+import { isAuthenticated, getAuthenticated } from "../selectors/user"
 
 class TimelinesStore extends BaseStore {
   constructor() {
     super()
     this.ref = "TIMELINES"
-    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "TOGGLE" ])
+    this.actions = this.createActions([ "FETCH", "CREATE", "DELETE", "TOGGLE", "FETCH_BY_USER_ID" ])
     this.initialState = {
       data: [],
       isLoading: false,
@@ -20,6 +20,9 @@ class TimelinesStore extends BaseStore {
     this.create = this.create.bind(this)
     this.delete = this.delete.bind(this)
     this.toggle = this.toggle.bind(this)
+    this.fetchByUserId = this.fetchByUserId.bind(this)
+    this.set = this.set.bind(this)
+    this.selectFirst = this.selectFirst.bind(this)
   }
 
   reducer(state = this.initialState, action) {
@@ -35,10 +38,17 @@ class TimelinesStore extends BaseStore {
           isLoading: true,
         }
       case actions.FETCH.SUCCESS:
+      case actions.FETCH_BY_USER_ID.SUCCESS:
         return {
           ...state,
           data: response.data,
           isLoading: false,
+          selected: [],
+        }
+      case actions.TOGGLE.SUCCESS:
+        return {
+          ...state,
+          selected: response.selected,
         }
       case actions.CREATE.SUCCESS:
       case actions.DELETE.SUCCESS:
@@ -49,11 +59,7 @@ class TimelinesStore extends BaseStore {
           ...state,
           isLoading: false,
         }
-      case actions.TOGGLE.SUCCESS:
-        return {
-          ...state,
-          selected: response.selected,
-        }
+      
       default:
         return state
     }
@@ -66,11 +72,60 @@ class TimelinesStore extends BaseStore {
       method: "GET",
       endpoint: this.baseEndpoint,
     }
-    yield call(this.callToAction, { actionType: this.actions.FETCH, params })
+    const { response } = yield call(this.callToAction, { actionType: this.actions.FETCH, params })
+    if (response) {
+      yield call(this.selectFirst)
+    }
   }
 
   * watchFetch() {
     yield takeLatest(this.actions.FETCH.REQUEST, this.fetch)
+  }
+
+  // FETCH USER'S TIMELINES
+  // -----------------------------
+  * fetchByUserId({ action }) {
+    const params = {
+      method: "GET",
+      endpoint: `${UserStore.baseEndpoint}/${action.id}/timelines`,
+    }
+    const { response } = yield call(this.callToAction, { actionType: this.actions.FETCH_BY_USER_ID, params })
+    if (response) {
+      yield call(this.selectFirst)
+    }
+  }
+
+  * watchFetchByUserId() {
+    yield takeLatest(this.actions.FETCH_BY_USER_ID.REQUEST, this.fetchByUserId)
+  }
+
+  // SET
+  // -----------------------------
+  * set() {
+    const isAuth = yield select(state => isAuthenticated(state))
+    if (isAuth) {
+      const { id } = yield select(state => getAuthenticated(state))
+      // fetch user's timelines
+      yield put({ type: this.actions.FETCH_BY_USER_ID.REQUEST, action: { id } })
+      // wait for timelines
+      yield take(this.actions.FETCH_BY_USER_ID.SUCCESS)
+    } else {
+      // fetch public timelines
+      yield put({ type: this.actions.FETCH.REQUEST })
+      // wait for timelines
+      yield take(this.actions.FETCH.SUCCESS)
+    }
+  }
+
+  // SELECT FIRST
+  // -----------------------------
+  * selectFirst() {
+    // get timelines from the store
+    const { data, selected } = yield select(state => state.timelines)
+    // toggle the first one if not already selected (if isPublic)
+    if (data.length && !selected.includes(data[0].id)) {
+      yield put({ type: this.actions.TOGGLE.REQUEST, action: { id: data[0].id } })
+    }
   }
 
   // CREATE
@@ -80,15 +135,16 @@ class TimelinesStore extends BaseStore {
       values, setErrors, setSubmitting, onSuccess,
     },
   }) {
+    const { id: usersId } = yield select(state => getAuthenticated(state))
     const params = {
       method: "POST",
       endpoint: this.baseEndpoint,
-      data: values,
+      data: Object.assign(values, { usersId, isPublic: 0 }),
     }
     const { response, error } = yield call(this.callToAction, { actionType: this.actions.CREATE, params })
     if (response) {
       yield call(onSuccess)
-      yield put({ type: this.actions.FETCH.REQUEST })
+      yield call(this.set)
     } else {
       yield call(setErrors, { fromApi: error.response.data })
     }
@@ -107,7 +163,7 @@ class TimelinesStore extends BaseStore {
       endpoint: `${this.baseEndpoint}/${action.id}`,
     }
     const { response } = yield call(this.callToAction, { actionType: this.actions.DELETE, params })
-    if (response) yield put({ type: this.actions.FETCH.REQUEST })
+    if (response) yield call(this.set)
   }
 
   * watchDelete() {
@@ -133,7 +189,7 @@ class TimelinesStore extends BaseStore {
     }
 
     yield put({ type: this.actions.TOGGLE.SUCCESS, response })
-    yield put({ type: Events.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
+    yield put({ type: EventsStore.actions.FETCH_BY_TIMELINES_IDS.REQUEST })
   }
 
   * watchToggle() {

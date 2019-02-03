@@ -3,18 +3,23 @@ import { handleError, handleSuccessOrErrorMessage } from './helpers'
 
 class TimelineController {
   static all(req, res) {
-    return Timeline.query()
-      // .eager('events(eventsFilter)', {
-      //   eventsFilter: (builder) => {
-      //     builder.select('id')
-      //   },
-      // })
-      .select([
-        'timelines.*',
-        Timeline.relatedQuery('events').count().as('eventsCount'),
-      ])
-      .then(data => res.send(data))
-      .catch(err => handleError(err, res))
+    return (
+      Timeline.query()
+        // .eager('events(eventsFilter)', {
+        //   eventsFilter: (builder) => {
+        //     builder.select('id')
+        //   },
+        // })
+        .select([
+          'timelines.*',
+          Timeline.relatedQuery('events')
+            .count()
+            .as('eventsCount'),
+        ])
+        .where({ isPublic: 1 })
+        .then(data => res.send(data))
+        .catch(err => handleError(err, res))
+    )
   }
 
   static get(req, res) {
@@ -50,6 +55,21 @@ class TimelineController {
       .where({ id })
       .del()
       .then(data => handleSuccessOrErrorMessage(data, res))
+      .catch(err => handleError(err, res))
+  }
+
+  static allByUserId(req, res) {
+    const { id } = req.params
+    return Timeline.query()
+      .select([
+        'timelines.*',
+        Timeline.relatedQuery('events')
+          .count()
+          .as('eventsCount'),
+      ])
+      .where({ usersId: id })
+      .where({ isPublic: 0 })
+      .then(data => res.send(data))
       .catch(err => handleError(err, res))
   }
 }

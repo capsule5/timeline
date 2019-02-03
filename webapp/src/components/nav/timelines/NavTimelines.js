@@ -2,6 +2,7 @@ import React, { PureComponent } from "react"
 import "./NavTimelines.scss"
 import TimelineToggle from "./TimelineToggle"
 import DeleteButton from "../../ui/buttons/DeleteButton"
+import IsAuth from "../../helpers/IsAuth"
 
 export default class NavTimelines extends PureComponent {
   render() {
@@ -20,7 +21,9 @@ export default class NavTimelines extends PureComponent {
                 toggleTimeline={ toggleTimeline }
                 selectedTimelines={ selectedTimelines }
               />
-              <DeleteButton id={ id } action={ deleteTimeline } />
+              <IsAuth>
+                <DeleteButton id={ id } action={ deleteTimeline } />
+              </IsAuth>
             </div>
           )
         })}

@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { formatMonth, formatDay } from "../../utils/date"
 import "./DetailEvent.scss"
 import DeleteButton from "../ui/buttons/DeleteButton"
+import IsAuth from "../helpers/IsAuth"
 
 class DetailEvent extends Component {
   renderDate() {
@@ -40,9 +41,11 @@ class DetailEvent extends Component {
           sunt excepturi esse omnis, dignissimos doloribus accusantium aspernatur dolore, nostrum quas debitis unde
           officia pariatur.
         </p>
-        <div>
-          <DeleteButton id={ id } action={ deleteEvent } />
-        </div>
+        <IsAuth>
+          <div>
+            <DeleteButton id={ id } action={ deleteEvent } />
+          </div>
+        </IsAuth>
       </div>
     )
   }

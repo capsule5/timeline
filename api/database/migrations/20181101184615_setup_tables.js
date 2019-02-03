@@ -7,14 +7,16 @@ exports.up = (knex, Promise) =>
       t.string('email')
         .unique()
         .notNullable()
-      t.string('password')
-        .notNullable()
+      t.string('password').notNullable()
       t.timestamps(false, true)
     })
     .createTable('timelines', t => {
       t.increments('id').primary()
       t.string('title').notNullable()
       t.string('colorBg', 7)
+      t.boolean('isPublic')
+      t.integer('usersId').unsigned()
+      t.foreign('usersId').references('users.id')
       t.timestamps(false, true)
     })
     .createTable('events', t => {
