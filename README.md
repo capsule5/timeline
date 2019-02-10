@@ -27,6 +27,10 @@ MySQL must be installed and running!
 ```sh
 cd api
 ```
+Setup db and seed:
+```sh
+yarn db:install  
+```
 Run migrations:
 ```sh
 knex migrate:latest  
@@ -35,3 +39,4 @@ Seed db:
 ```sh
 knex seed:run  
 ```
+

@@ -1,6 +1,6 @@
 import { delay } from "redux-saga"
 import {
-  call, select, takeLatest, put, take, race,
+  call, takeLatest, put, take, race,
 } from "redux-saga/effects"
 import BaseStore from "./BaseStore"
 import TimelinesStore from "./TimelinesStore"
