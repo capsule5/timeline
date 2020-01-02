@@ -32,6 +32,7 @@ passport.use(
         // Send the user information to the next middleware
         return done(null, user, { message: 'Logged in Successfully' })
       } catch (error) {
+        console.log({ error })
         return done(error)
       }
     }
