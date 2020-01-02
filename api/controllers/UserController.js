@@ -61,7 +61,7 @@ class UserController {
       const token = jwt.sign(
         { id, email },
         process.env.JWT_SECRET_OR_KEY,
-        { expiresIn: process.env.JWT_EXPIRATION } // 30s
+        { expiresIn: process.env.JWT_EXPIRATION }
       )
       return res.send({ user: { id, firstName, lastName, email }, token })
     })(req, res)

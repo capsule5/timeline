@@ -48,13 +48,12 @@ class BaseStore {
 
   api({ method, endpoint, data = {} }) {
     const secret_token = this.getToken()
-    console.log({ secret_token })
     return axios({
       url: `${API_BASE_URL}${endpoint}`,
       method,
       data,
       headers: {
-        secret_token,
+        Authorization: `Bearer ${secret_token}`,
       },
     })
       .then((response) => {

@@ -45,12 +45,12 @@ passport.use(
     {
       // secret we used to sign our JWT
       secretOrKey: process.env.JWT_SECRET_OR_KEY,
-      jwtFromRequest: ExtractJWT.fromHeader('secret_token'),
+      jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     },
     async (jwtPayload, done) => {
       console.warn('[stab]', {
         jwtPayload,
-        date_iat: new Date(jwtPayload.iat * 1000), // 
+        date_iat: new Date(jwtPayload.iat * 1000), //
         date_exp: new Date(jwtPayload.exp * 1000),
         date_now: new Date(),
       })
