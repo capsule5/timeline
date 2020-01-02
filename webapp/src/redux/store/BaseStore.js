@@ -60,7 +60,7 @@ class BaseStore {
         return { response }
       })
       .catch((error) => {
-        console.log("API error", method, endpoint, error.response.data)
+        console.log("API error", method, endpoint, error)
         return { error }
       })
   }
