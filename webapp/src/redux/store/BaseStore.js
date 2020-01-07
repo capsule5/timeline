@@ -3,7 +3,7 @@ import axios from "axios"
 import jwt from "jsonwebtoken"
 
 const API_LOCAL = "http://localhost:3003/"
-const API_PROD = "http://46.101.243.149/api/"
+const API_PROD = "https://timeline.capsule5.com/api/"
 const API_BASE_URL = process.env.NODE_ENV === "production" ? API_PROD : API_LOCAL
 
 class BaseStore {
