@@ -1,8 +1,12 @@
 const { execSync } = require('child_process')
 const path = require('path')
 
+const rootPath = path.join(__dirname, '../')
 const binPath = path.join(__dirname, '../node_modules/.bin')
-console.log('binPath:', binPath)
+const nodemon = binPath+'/nodemon'
+const babelnode = binPath+'/babel-node '
+const index  = rootPath+'index.js'
 
+console.log({ nodemon,babelnode,index })
 
-execSync(binPath+'/nodemon ./index.js --exec \"node -r babel-register\"', { stdio: 'inherit' })
+execSync(`${nodemon} --exec ${babelnode} ${index}`, { stdio: 'inherit' })
